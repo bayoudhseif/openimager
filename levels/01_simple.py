@@ -44,7 +44,7 @@ while True:
         break
 
     img = cv2.flip(img, 1)
-    hands, img = detector.findHands(img, draw=False)  # Don't draw default dots
+    hands, img = detector.findHands(img, draw=True)  # Don't draw default dots
 
     if hands:
         for hand in hands:
@@ -58,10 +58,6 @@ while True:
                 is_grabbing = False
 
             singleRect.update(cursor, is_grabbing)
-
-            for lm in lmList:  # Draw custom landmarks
-                cv2.circle(img, (lm[0], lm[1]), 5, colorLandmarks, cv2.FILLED)
-            cv2.circle(img, tuple(cursor), 10, colorCursor, cv2.FILLED)  # Cursor
 
     imgNew = np.zeros_like(img, np.uint8)
     cx, cy = singleRect.posCenter
