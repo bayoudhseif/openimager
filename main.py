@@ -38,7 +38,8 @@ style.configure("TLabel", font=("Montserrat", 16))
 title = ttk.Label(root, text="Open Imager", font=("Montserrat", 20, "bold"))
 title.pack(pady=(10, 5))
 
-subtitle = ttk.Label(root, text="Gesture Tracking", font=("Montserrat", 14))
+subtitle = ttk.Label(root, text="Orthopedic Gesture Control", font=("Montserrat", 14))
+
 subtitle.pack(pady=(0, 20))
 
 # Button frame
@@ -54,6 +55,10 @@ btn_intermediate.pack(pady=5, fill='x')
 
 btn_advanced = ttk.Button(button_frame, text="Advanced", command=lambda: open_file("Advanced"))
 btn_advanced.pack(pady=5, fill='x')
+
+# Credits
+credits = ttk.Label(root, text="A project by Bayoudh Seïf & Bouzian Hicham.", font=("Montserrat", 10))
+credits.pack(side='bottom', pady=(10, 0))
 
 # Run the application
 root.mainloop()
