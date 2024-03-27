@@ -10,7 +10,7 @@ detector = HandDetector(detectionCon=0.8)
 colorR = (255, 0, 255)
 
 grab_threshold = 30  # Distance threshold to consider as a grab gesture
-release_threshold = 35  # Distance threshold to release the object
+release_threshold = 40  # Distance threshold to release the object
 is_grabbing = False  # State to keep track of whether an object is currently grabbed
 
 class DragRect():
