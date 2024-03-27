@@ -44,13 +44,13 @@ while True:
         break
 
     img = cv2.flip(img, 1)
-    hands, img = detector.findHands(img, draw=True)  # Don't draw default dots
+    hands, img = detector.findHands(img, draw=False)  # Don't draw default dots
 
     if hands:
         for hand in hands:
             lmList = hand["lmList"]
             cursor = lmList[8][:2]
-            l, _, _ = detector.findDistance(lmList[8][:2], lmList[12][:2], img)
+            l, _, _ = detector.findDistance(lmList[8][:2], lmList[12][:2], img, draw=False)
 
             if not is_grabbing and l < grab_threshold:
                 is_grabbing = True
