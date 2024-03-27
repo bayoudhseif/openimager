@@ -1,29 +1,58 @@
 import tkinter as tk
-from tkinter import messagebox
-import os
+from tkinter import ttk, messagebox
 
-def open_file(file_name):
-    try:
-        os.system(f"python {file_name}")
-    except Exception as e:
-        messagebox.showerror("Error", f"Failed to open {file_name}\n{e}")
+def open_file(difficulty):
+    file_map = {
+        "Simple": "simple.py",
+        "Intermediate": "intermediate.py",
+        "Advanced": "advanced.py"
+    }
+    file_name = file_map.get(difficulty)
+    if file_name:
+        try:
+            os.system(f"python {file_name}")
+        except Exception as e:
+            messagebox.showerror("Error", f"Failed to open {file_name}\n{e}")
 
 # Create the main window
 root = tk.Tk()
 root.title("Open Imager")
 
-# Set window size (optional)
-root.geometry("300x150")
+# Try to set a more modern theme if available
+try:
+    root.tk.call("source", "sun-valley.tcl")
+    root.tk.call("set_theme", "light")
+except tk.TclError:
+    pass  # Fallback to default if the theme is not available
 
-# Create buttons
-btn_file1 = tk.Button(root, text="Open File 1", command=lambda: open_file("file1.py"))
-btn_file1.pack(pady=5)
+# Set window size and position
+root.geometry("400x300+400+200")
 
-btn_file2 = tk.Button(root, text="Open File 2", command=lambda: open_file("file2.py"))
-btn_file2.pack(pady=5)
+# Custom styling
+style = ttk.Style()
+style.configure("TButton", font=("Montserrat", 12), background="#f0f0f0")
+style.configure("TLabel", font=("Montserrat", 16))
 
-btn_file3 = tk.Button(root, text="Open File 3", command=lambda: open_file("file3.py"))
-btn_file3.pack(pady=5)
+# Title and subtitle
+title = ttk.Label(root, text="Open Imager", font=("Montserrat", 20, "bold"))
+title.pack(pady=(10, 5))
+
+subtitle = ttk.Label(root, text="Gesture Tracking", font=("Montserrat", 14))
+subtitle.pack(pady=(0, 20))
+
+# Button frame
+button_frame = ttk.Frame(root)
+button_frame.pack(pady=20)
+
+# Buttons
+btn_simple = ttk.Button(button_frame, text="Simple", command=lambda: open_file("Simple"))
+btn_simple.pack(pady=5, fill='x')
+
+btn_intermediate = ttk.Button(button_frame, text="Intermediate", command=lambda: open_file("Intermediate"))
+btn_intermediate.pack(pady=5, fill='x')
+
+btn_advanced = ttk.Button(button_frame, text="Advanced", command=lambda: open_file("Advanced"))
+btn_advanced.pack(pady=5, fill='x')
 
 # Run the application
 root.mainloop()
