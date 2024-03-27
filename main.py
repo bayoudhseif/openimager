@@ -59,6 +59,9 @@ btn_advanced.pack(pady=5, fill='x')
 # Credits
 credits = ttk.Label(root, text="A project by Bayoudh Seïf & Bouzian Hicham.", font=("Montserrat", 10))
 credits.pack(side='bottom', pady=(10, 0))
+# Extra line
+credits2 = ttk.Label(root, text="openimager.com", font=("Montserrat", 10))
+credits2.pack(side='bottom', pady=(0, 0))
 
 # Run the application
 root.mainloop()
