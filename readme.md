@@ -1,5 +1,5 @@
-Python version: 3.11.?
+Python: 3.11.7
 
-To do::
+Plans:
 
-Integrate a hand distance calculator to provide guidance to the user, suggesting them to adjust their distance for optimal hand tracking.
+- Integrate a hand distance calculator to provide guidance to the user, suggesting them to adjust their distance for optimal hand tracking.
