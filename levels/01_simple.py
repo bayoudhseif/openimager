@@ -50,7 +50,7 @@ while True:
         for hand in hands:
             lmList = hand["lmList"]
             cursor = lmList[8][:2]
-            l, _, _ = detector.findDistance(lmList[8][:2], lmList[12][:2], img, draw=False)
+            l, _, _ = detector.findDistance(lmList[8][:2], lmList[12][:2], img,)
 
             if not is_grabbing and l < grab_threshold:
                 is_grabbing = True
