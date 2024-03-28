@@ -3,6 +3,7 @@ import mediapipe as mp
 import time
 import random
 import pygame
+import threading
 
 class handDetector():
     def __init__(self, mode=False, maxHands=2, detectionCon=0.5, trackCon=0.5):
@@ -62,19 +63,25 @@ class handDetector():
             return fingers.count(1)
         return 0
 
-def play_piano_sequence(sequence_number):
+def play_piano_sequence():
     # Define the piano notes in sequence
     piano_notes = [
-        pygame.mixer.Sound("levels/03_advanced/do.mp3"),
-        pygame.mixer.Sound("levels/03_advanced/re.mp3"),
-        pygame.mixer.Sound("levels/03_advanced/mi.mp3"),
-        pygame.mixer.Sound("levels/03_advanced/fa.mp3"),
-        pygame.mixer.Sound("levels/03_advanced/sol.mp3")
+        pygame.mixer.Sound("levels/03_advanced/song2.mp3"),
     ]
     
-    # Play the piano note based on the sequence number
-    note_index = (sequence_number - 1) % len(piano_notes)
-    piano_notes[note_index].play()
+    # Keep track of the elapsed time
+    elapsed_time = 0
+
+    # Play the piano notes in a loop
+    while True:
+        for note in piano_notes:
+            if elapsed_time < note.get_length():
+                note.play()
+                time.sleep(note.get_length() - elapsed_time)  # Wait for the remaining duration
+                elapsed_time = 0  # Reset elapsed time for the next note
+            else:
+                elapsed_time -= note.get_length()  # Update elapsed time for the next note
+
 
 def main():
     cap = cv2.VideoCapture(0)  # Use camera 0
@@ -83,9 +90,14 @@ def main():
     previous_number = 0
     current_number = random.randint(1, 5)
     display_text = f"Show {current_number} fingers"
+    last_gesture_time = time.time()  # Initialize the time of the last gesture
 
     # Initialize pygame mixer
     pygame.mixer.init()
+
+    # Start playing the piano sequence
+    play_piano_sequence_thread = threading.Thread(target=play_piano_sequence)
+    play_piano_sequence_thread.start()
 
     while True:
         success, img = cap.read()
@@ -96,18 +108,27 @@ def main():
             fingers_count = detector.countFingers(img, lmList)
             if fingers_count == current_number:
                 gesture_count += 1  # Increment the count for each correct gesture
-                play_piano_sequence(gesture_count)  # Play the note based on the sequence of correct gestures
-
+                last_gesture_time = time.time()  # Update the time of the last gesture
                 # Prepare for the next round
                 previous_number = current_number
                 while previous_number == current_number:
                     current_number = random.randint(1, 5)
                 display_text = f"Show {current_number} fingers"
+                # Unpause the piano sequence if paused
+                pygame.mixer.unpause()
 
             cv2.putText(img, display_text, (10, 70), cv2.FONT_HERSHEY_PLAIN, 3, (255, 0, 255), 3)
+
+        # Check if the user hasn't made a gesture in the last 5 seconds
+        if time.time() - last_gesture_time > 0.8:
+            # Pause the piano sequence
+            pygame.mixer.pause()
 
         cv2.imshow("Image", img)
         cv2.waitKey(1)
 
 if __name__ == "__main__":
     main()
+    cap.release()
+    cv2.destroyAllWindows()
+    pygame.mixer.quit()
