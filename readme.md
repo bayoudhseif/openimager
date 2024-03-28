@@ -1,9 +1,4 @@
-Python: 3.11.7
+**Open Imager** is a cutting-edge, gesture-controlled interface designed to harness the power of advanced hand tracking technologies. Utilizing a combination of **OpenCV**, **cvzone**, and **MediaPipe**, it offers an unparalleled interactive experience.
 
-Current:
-
-- Simple level basic grabbing works.
-
-Plans:
-
-- Integrate a hand distance calculator to provide guidance to the user, suggesting them to adjust their distance for optimal hand tracking.
+- **Engage and Interact**: Immerse yourself in a variety of interactive applications, all controlled through natural and intuitive hand gestures.
+- **Easy to Start**: Begin your journey into gesture control with ease. Simply download all necessary dependencies and run `python main.py` to dive in.
