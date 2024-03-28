@@ -12,13 +12,11 @@ detector = HandDetector(detectionCon=0.8)
 # Snake properties
 snake_color = (0, 255, 0)  # Green
 treat_color = (0, 0, 255)  # Red
-snake_head = [640, 360]  # Initial position
-snake_body = [[640, 360]]  # Initial body
-direction = "UP"
 snake_size = 20
 treat_size = 20
 treat_pos = [random.randint(100, 1180), random.randint(100, 620)]
 score = 0
+snake_body = [[640, 360]]  # Starting position of the snake
 
 def add_treat():
     return [random.randint(100, 1180), random.randint(100, 620)]
@@ -42,19 +40,23 @@ while True:
     hands, img = detector.findHands(img, draw=False)
 
     if hands:
-        hand_center = hands[0]['center']  # Use the center of the first detected hand as the control point
-        snake_head = hand_center
-        snake_body.insert(0, list(snake_head))  # Move the snake in the direction of the hand
+        # Make sure the landmarks list is not empty before accessing it
+        if hands[0].get("lmList"):
+            # Use the index finger tip position as the head of the snake
+            index_finger_tip = hands[0]["lmList"][8][:2]  # Index finger tip position
+            snake_head = index_finger_tip
+            snake_body.insert(0, list(snake_head))  # Move the snake based on index finger position
 
-        if check_collision_with_treat(snake_head, treat_pos):
-            score += 1
-            treat_pos = add_treat()  # Generate new treat
-        else:
-            snake_body.pop()  # Keep the snake the same length unless it has eaten a treat
+            if check_collision_with_treat(snake_head, treat_pos):
+                score += 1
+                treat_pos = add_treat()  # Generate new treat
+            else:
+                if len(snake_body) > 1:
+                    snake_body.pop()  # Keep the snake the same length unless it has eaten a treat
 
-        if check_self_collision(snake_body):
-            print("Game Over. Score:", score)
-            break  # End the game if the snake collides with itself
+            if check_self_collision(snake_body):
+                print("Game Over. Score:", score)
+                break  # End the game if the snake collides with itself
 
     # Draw the treat
     cv2.circle(img, tuple(treat_pos), treat_size, treat_color, cv2.FILLED)
