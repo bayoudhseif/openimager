@@ -66,7 +66,7 @@ import random
 def main():
     cap = cv2.VideoCapture(0)  # Use camera 0
     detector = handDetector()
-    previous_fingers_count = -1
+    previous_number = 0
     current_number = random.randint(1, 5)
     display_text = f"Show {current_number} fingers"
 
@@ -77,10 +77,11 @@ def main():
         
         if lmList:
             fingers_count = detector.countFingers(img, lmList)
-            if fingers_count == current_number and fingers_count != previous_fingers_count:
-                current_number = random.randint(1, 5)
+            if fingers_count == current_number:
+                previous_number = current_number
+                while previous_number == current_number:
+                    current_number = random.randint(1, 5)
                 display_text = f"Show {current_number} fingers"
-            previous_fingers_count = fingers_count
 
             cv2.putText(img, display_text, (10, 70), cv2.FONT_HERSHEY_PLAIN, 3, (255, 0, 255), 3)
 
