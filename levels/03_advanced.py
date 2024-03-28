@@ -1,6 +1,8 @@
 import cv2
 import mediapipe as mp
 import time
+import random
+import pygame
 
 class handDetector():
     def __init__(self, mode=False, maxHands=2, detectionCon=0.5, trackCon=0.5):
@@ -60,15 +62,30 @@ class handDetector():
             return fingers.count(1)
         return 0
 
-# Example usage
-import random
+def play_piano_sequence(sequence_number):
+    # Define the piano notes in sequence
+    piano_notes = [
+        pygame.mixer.Sound("levels/do.mp3"),
+        pygame.mixer.Sound("levels/re.mp3"),
+        pygame.mixer.Sound("levels/mi.mp3"),
+        pygame.mixer.Sound("levels/fa.mp3"),
+        pygame.mixer.Sound("levels/sol.mp3")
+    ]
+    
+    # Play the piano note based on the sequence number
+    note_index = (sequence_number - 1) % len(piano_notes)
+    piano_notes[note_index].play()
 
 def main():
     cap = cv2.VideoCapture(0)  # Use camera 0
     detector = handDetector()
+    gesture_count = 0  # Initialize a counter for correct gestures
     previous_number = 0
     current_number = random.randint(1, 5)
     display_text = f"Show {current_number} fingers"
+
+    # Initialize pygame mixer
+    pygame.mixer.init()
 
     while True:
         success, img = cap.read()
@@ -78,6 +95,10 @@ def main():
         if lmList:
             fingers_count = detector.countFingers(img, lmList)
             if fingers_count == current_number:
+                gesture_count += 1  # Increment the count for each correct gesture
+                play_piano_sequence(gesture_count)  # Play the note based on the sequence of correct gestures
+
+                # Prepare for the next round
                 previous_number = current_number
                 while previous_number == current_number:
                     current_number = random.randint(1, 5)
