@@ -3,71 +3,80 @@ from cvzone.HandTrackingModule import HandDetector
 import numpy as np
 import random
 
+# Initialize the camera
 cap = cv2.VideoCapture(0)
-cap.set(3, 1280)
-cap.set(4, 720)
+cap.set(3, 1280)  # Width
+cap.set(4, 720)   # Height
 
+# Initialize the hand detector
 detector = HandDetector(detectionCon=0.8)
 
-# Snake properties
-snake_color = (0, 255, 0)  # Green
-treat_color = (0, 0, 255)  # Red
-snake_size = 20
-treat_size = 20
-treat_pos = [random.randint(100, 1180), random.randint(100, 620)]
-score = 0
-snake_body = [[640, 360]]  # Starting position of the snake
+def initialize_game():
+    # Resets or initializes the game state for a new game
+    return {
+        "treat_pos": [random.randint(100, 1180), random.randint(100, 620)],
+        "score": 0,
+        "snake_body": [[640, 360]],  # Starting position
+        "game_over": False,
+    }
 
 def add_treat():
+    # Generates a new position for the treat
     return [random.randint(100, 1180), random.randint(100, 620)]
 
-def check_collision_with_treat(head, treat):
+def check_collision_with_treat(head, treat, tolerance=20):
+    # Checks if the snake's head has collided with a treat
     dx = head[0] - treat[0]
     dy = head[1] - treat[1]
     distance = np.sqrt(dx**2 + dy**2)
-    return distance < (snake_size + treat_size) / 2
+    return distance < tolerance
 
 def check_self_collision(snake_body):
+    # Checks if the snake has collided with itself
     head = snake_body[0]
     return head in snake_body[1:]
 
+# Main game loop
 while True:
-    success, img = cap.read()
-    if not success:
-        break
+    game_state = initialize_game()
 
-    img = cv2.flip(img, 1)
-    hands, img = detector.findHands(img, draw=False)
+    while not game_state["game_over"]:
+        success, img = cap.read()
+        if not success:
+            continue
 
-    if hands:
-        # Make sure the landmarks list is not empty before accessing it
-        if hands[0].get("lmList"):
-            # Use the index finger tip position as the head of the snake
-            index_finger_tip = hands[0]["lmList"][8][:2]  # Index finger tip position
-            snake_head = index_finger_tip
-            snake_body.insert(0, list(snake_head))  # Move the snake based on index finger position
+        img = cv2.flip(img, 1)
+        hands, img = detector.findHands(img, draw=False)
 
-            if check_collision_with_treat(snake_head, treat_pos):
-                score += 1
-                treat_pos = add_treat()  # Generate new treat
+        if hands:
+            index_finger_tip = hands[0]["lmList"][8][:2]
+            if len(game_state["snake_body"]) < 2 or not check_self_collision([index_finger_tip] + game_state["snake_body"][1:]):
+                game_state["snake_body"].insert(0, list(index_finger_tip))  # Move the snake
+                if check_collision_with_treat(index_finger_tip, game_state["treat_pos"], tolerance=25):
+                    game_state["score"] += 1
+                    game_state["treat_pos"] = add_treat()  # Add new treat
+                else:
+                    game_state["snake_body"].pop()  # Keep the snake's length constant
             else:
-                if len(snake_body) > 1:
-                    snake_body.pop()  # Keep the snake the same length unless it has eaten a treat
+                game_state["game_over"] = True  # End game condition
 
-            if check_self_collision(snake_body):
-                print("Game Over. Score:", score)
-                break  # End the game if the snake collides with itself
+        # Drawing
+        cv2.circle(img, tuple(game_state["treat_pos"]), 10, (0, 0, 255), cv2.FILLED)  # Draw the treat
+        for segment in game_state["snake_body"]:
+            cv2.circle(img, tuple(segment), 10, (0, 255, 0), cv2.FILLED)  # Draw the snake
+        
+        # Display score
+        cv2.putText(img, f"Score: {game_state['score']}", (10, 30), cv2.FONT_HERSHEY_PLAIN, 2, (255, 255, 255), 2)
+        cv2.imshow("Snake Game", img)
 
-    # Draw the treat
-    cv2.circle(img, tuple(treat_pos), treat_size, treat_color, cv2.FILLED)
+        if cv2.waitKey(1) & 0xFF == ord('q'):
+            break
 
-    # Draw the snake
-    for segment in snake_body:
-        cv2.circle(img, tuple(segment), snake_size, snake_color, cv2.FILLED)
-
-    cv2.imshow("Snake Game", img)
-    if cv2.waitKey(1) & 0xFF == ord('q'):
-        break
+    if game_state["game_over"]:
+        # Wait for a key press before restarting
+        print(f"Game Over. Final Score: {game_state['score']}")
+        cv2.waitKey(1000)  # Wait a bit before restarting
+        continue  # Restart the game
 
 cap.release()
 cv2.destroyAllWindows()
