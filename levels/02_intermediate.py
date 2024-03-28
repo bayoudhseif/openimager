@@ -37,7 +37,8 @@ def check_self_collision(snake_body):
     return head in snake_body[1:]
 
 # Main game loop
-while True:
+game_running = True
+while game_running:
     game_state = initialize_game()
 
     while not game_state["game_over"]:
@@ -69,14 +70,14 @@ while True:
         cv2.putText(img, f"Score: {game_state['score']}", (10, 30), cv2.FONT_HERSHEY_PLAIN, 2, (255, 255, 255), 2)
         cv2.imshow("Snake Game", img)
 
-        if cv2.waitKey(1) & 0xFF == ord('q'):
+        if game_state["score"] >= 30 or cv2.waitKey(1) & 0xFF == ord('q'):
+            game_running = False
             break
 
     if game_state["game_over"]:
         # Wait for a key press before restarting
         print(f"Game Over. Final Score: {game_state['score']}")
-        cv2.waitKey(1000)  # Wait a bit before restarting
-        continue  # Restart the game
+        cv2.waitKey(1000)  # Wait a bit before potentially restarting
 
 cap.release()
 cv2.destroyAllWindows()
