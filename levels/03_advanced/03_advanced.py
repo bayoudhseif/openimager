@@ -65,11 +65,11 @@ class handDetector():
 def play_piano_sequence(sequence_number):
     # Define the piano notes in sequence
     piano_notes = [
-        pygame.mixer.Sound("levels/do.mp3"),
-        pygame.mixer.Sound("levels/re.mp3"),
-        pygame.mixer.Sound("levels/mi.mp3"),
-        pygame.mixer.Sound("levels/fa.mp3"),
-        pygame.mixer.Sound("levels/sol.mp3")
+        pygame.mixer.Sound("levels/03_advanced/do.mp3"),
+        pygame.mixer.Sound("levels/03_advanced/re.mp3"),
+        pygame.mixer.Sound("levels/03_advanced/mi.mp3"),
+        pygame.mixer.Sound("levels/03_advanced/fa.mp3"),
+        pygame.mixer.Sound("levels/03_advanced/sol.mp3")
     ]
     
     # Play the piano note based on the sequence number

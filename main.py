@@ -4,9 +4,9 @@ import os
 
 def open_file(difficulty):
     file_map = {
-        "Simple": "levels/01_simple.py",
-        "Intermediate": "levels/02_intermediate.py",
-        "Advanced": "levels/03_advanced.py"
+        "Simple": "levels/01_simple/01_simple.py",
+        "Intermediate": "levels/02_intermediate/02_intermediate.py",
+        "Advanced": "levels/03_advanced/03_advanced.py"
     }
     file_name = file_map.get(difficulty)
     if file_name:
