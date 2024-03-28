@@ -63,22 +63,16 @@ class handDetector():
 # Example usage
 def main():
     cap = cv2.VideoCapture(0)  # Use camera 0
-    pTime = 0
     detector = handDetector()
-
+    
     while True:
         success, img = cap.read()
         img = detector.findHands(img)
         lmList = detector.findPosition(img, draw=False)
+        
         if lmList:
-            fingersCounted = detector.countFingers(img, lmList)
-            print(f"Fingers: {fingersCounted}")
-
-        # FPS Calculation
-        cTime = time.time()
-        fps = 1 / (cTime - pTime)
-        pTime = cTime
-        cv2.putText(img, f'FPS: {int(fps)}', (10, 70), cv2.FONT_HERSHEY_PLAIN, 3, (255, 0, 255), 3)
+            fingers_count = detector.countFingers(img, lmList)
+            cv2.putText(img, f'Fingers: {fingers_count}', (10, 70), cv2.FONT_HERSHEY_PLAIN, 3, (255, 0, 255), 3)
 
         cv2.imshow("Image", img)
         cv2.waitKey(1)
