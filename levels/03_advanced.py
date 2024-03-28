@@ -61,10 +61,15 @@ class handDetector():
         return 0
 
 # Example usage
+import random
+
 def main():
     cap = cv2.VideoCapture(0)  # Use camera 0
     detector = handDetector()
-    
+    previous_fingers_count = -1
+    current_number = random.randint(1, 5)
+    display_text = f"Show {current_number} fingers"
+
     while True:
         success, img = cap.read()
         img = detector.findHands(img)
@@ -72,7 +77,12 @@ def main():
         
         if lmList:
             fingers_count = detector.countFingers(img, lmList)
-            cv2.putText(img, f'Fingers: {fingers_count}', (10, 70), cv2.FONT_HERSHEY_PLAIN, 3, (255, 0, 255), 3)
+            if fingers_count == current_number and fingers_count != previous_fingers_count:
+                current_number = random.randint(1, 5)
+                display_text = f"Show {current_number} fingers"
+            previous_fingers_count = fingers_count
+
+            cv2.putText(img, display_text, (10, 70), cv2.FONT_HERSHEY_PLAIN, 3, (255, 0, 255), 3)
 
         cv2.imshow("Image", img)
         cv2.waitKey(1)
