@@ -6,7 +6,7 @@ def open_file(difficulty):
     file_map = {
         "Simple": "levels/01_simple/01_simple.py",
         "Intermediate": "levels/02_intermediate/02_intermediate.py",
-        "Advanced": "levels/03_advanced/03_advanced.py",
+        "Advanced": "levels/03_advanced/03_advanced2.py",
         "Expert": "levels/04_expert/04_expert.py",  # New level added
         "Master": "levels/05_master/05_master.py"   # New level added
     }
