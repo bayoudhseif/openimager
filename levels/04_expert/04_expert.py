@@ -23,12 +23,13 @@ class handDetector():
             index_finger_tip = landmarks[self.mpHands.HandLandmark.INDEX_FINGER_TIP]
             x1, y1 = int(thumb_tip.x * img.shape[1]), int(thumb_tip.y * img.shape[0])
             x2, y2 = int(index_finger_tip.x * img.shape[1]), int(index_finger_tip.y * img.shape[0])
-            cv2.circle(img, (x1, y1), 15, (255, 0, 255), cv2.FILLED)
-            cv2.circle(img, (x2, y2), 15, (255, 0, 255), cv2.FILLED)
+            cv2.circle(img, (x1, y1), 7, (255, 0, 255), cv2.FILLED)  # Reduced radius from 15 to 7
+            cv2.circle(img, (x2, y2), 7, (255, 0, 255), cv2.FILLED)  # Reduced radius from 15 to 7
             cv2.line(img, (x1, y1), (x2, y2), (255, 0, 255), 3)
             length = math.hypot(x2 - x1, y2 - y1)
             return length, img
         return 0, img
+
 
 def main():
     cap = cv2.VideoCapture(0) # Adjust camera index if necessary
