@@ -1,6 +1,8 @@
 import tkinter as tk
 from tkinter import ttk, messagebox
 import os
+import eel
+
 
 def open_file(difficulty):
     file_map = {

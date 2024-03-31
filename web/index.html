@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" style="height: 100%;">
+<head>
+    <meta charset="UTF-8">
+    <title>Open Imager</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #007bff; /* Blue */
+            --hover-color: #0056b3; /* Darker Blue */
+            --text-color: #333; /* Dark Gray */
+            --background-color: #f0f0f0; /* Off White */
+        }
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+        }
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            padding: 20px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        h1, h2 {
+            color: var(--primary-color);
+        }
+        #button-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        button {
+            padding: 15px 30px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: background-color 0.3s, transform 0.3s;
+            font-weight: 500;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: var(--hover-color);
+            transform: translateY(-2px);
+        }
+        .credits {
+            font-size: 12px;
+            color: #aaa;
+            position: absolute;
+            bottom: 10px;
+            width: 100%;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <h1>Open Imager</h1>
+        <h2>Orthopedic Gesture Control</h2>
+        <div id="button-container">
+            <!-- Buttons will be added here by JS -->
+        </div>
+    </div>
+    <p class="credits">A project by Bayoudh Seïf & Bouzian Hicham.</p>
+    <p class="credits">openimager.com</p>
+
+    <script>
+        const levels = ["Simple", "Intermediate", "Advanced", "Expert", "Master"];
+
+        levels.forEach(level => {
+            const btn = document.createElement('button');
+            btn.textContent = level;
+            btn.onclick = () => eel.open_file(level)();
+            document.getElementById('button-container').appendChild(btn);
+        });
+    </script>
+    <script src="/eel.js"></script> <!-- Eel's required JS -->
+</body>
+</html>
