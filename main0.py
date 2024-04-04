@@ -1,9 +1,10 @@
 import eel
 import os
 
-eel.init('web')  # Assuming your HTML/CSS/JS file is inside a directory named 'web'
+# Initialize the Eel application with the 'web' directory containing your HTML, CSS, and JS files
+eel.init('web')
 
-@eel.expose  # Make this Python function callable from JavaScript
+@eel.expose  # Expose this function to JavaScript so it can be called from the frontend
 def open_file(difficulty):
     file_map = {
         "Simple": "levels/01_simple/01_simple.py",
@@ -17,6 +18,7 @@ def open_file(difficulty):
         try:
             os.system(f"python {file_name}")
         except Exception as e:
-            print(f"Failed to open {file_name}\n{e}")  # Eel does not support messagebox directly
+            print(f"Failed to open {file_name}\n{e}")
 
-eel.start('index.html', size=(400, 400))  # Start Eel with your main HTML page
+# Start the Eel application with configurations directly passed as keyword arguments
+eel.start('index.html', mode='chrome-app', cmdline_args=['--start-maximized'])
