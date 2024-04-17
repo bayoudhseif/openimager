@@ -2,3 +2,7 @@
 
 - **Engage and Interact**: Immerse yourself in a variety of interactive applications, all controlled through natural and intuitive hand gestures.
 - **Easy to Start**: Begin your journey into gesture control with ease. Simply download all necessary dependencies and run `python main.py` to dive in.
+
+Installed versions:
+
+Python 3.11.7
