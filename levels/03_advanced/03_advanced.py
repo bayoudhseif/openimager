@@ -4,6 +4,7 @@ import time
 import random
 import pygame
 import threading
+import subprocess
 
 class handDetector():
     def __init__(self, mode=False, maxHands=2, detectionCon=0.5, trackCon=0.5):
@@ -82,7 +83,6 @@ def play_piano_sequence():
             else:
                 elapsed_time -= note.get_length()  # Update elapsed time for the next note
 
-
 def main():
     cap = cv2.VideoCapture(0)  # Use camera 0
     detector = handDetector()
@@ -125,10 +125,15 @@ def main():
             pygame.mixer.pause()
 
         cv2.imshow("Image", img)
-        cv2.waitKey(1)
+        if cv2.waitKey(1) & 0xFF == ord('q'):
+            break
 
-if __name__ == "__main__":
-    main()
     cap.release()
     cv2.destroyAllWindows()
     pygame.mixer.quit()
+
+    # After the level is completed or closed
+    subprocess.Popen(["python", "main.py"], creationflags=subprocess.CREATE_NEW_CONSOLE)
+
+if __name__ == "__main__":
+    main()
