@@ -8,9 +8,7 @@ def open_file(difficulty):
     file_map = {
         "Simple": "levels/01_simple/01_simple.py",
         "Intermediate": "levels/02_intermediate/02_intermediate.py",
-        "Advanced": "levels/03_advanced/03_advanced.py",
-        "Expert": "levels/04_expert/04_expert.py",  # New level added
-        "Master": "levels/05_master/05_master.py"   # New level added
+        "Advanced": "levels/03_advanced/03_advanced.py"
     }
     file_name = file_map.get(difficulty)
     if file_name:
@@ -50,7 +48,7 @@ button_frame = tk.Frame(root, bg='#121212')
 button_frame.pack(pady=10)
 
 # Buttons for each level
-levels = ["Simple", "Intermediate", "Advanced", "Expert", "Master"]
+levels = ["Simple", "Intermediate", "Advanced"]
 for level in levels:
     ttk.Button(button_frame, text=level, command=lambda lvl=level: open_file(lvl)).pack(pady=5, fill='x')
 
