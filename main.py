@@ -1,8 +1,6 @@
 import tkinter as tk
 from tkinter import ttk, messagebox
 import os
-import eel
-
 
 def open_file(difficulty):
     file_map = {
@@ -17,14 +15,22 @@ def open_file(difficulty):
         except Exception as e:
             messagebox.showerror("Error", f"Failed to open {file_name}\n{e}")
 
+def minimize_window():
+    root.iconify()
+
+def close_window():
+    root.destroy()
+
+def toggle_fullscreen():
+    root.attributes("-fullscreen", not root.attributes("-fullscreen"))
+
 # Create the main window
 root = tk.Tk()
-root.title("Open Imager")
+root.title("Orthopedic Gesture Control")
+root.configure(bg='#f0f0f0')
 
-# Adjust window size to accommodate more buttons
-root.geometry("400x400+400+200")  # Increased height
-root.configure(bg='#121212')
-root.attributes("-alpha", 0.95)  # Slightly transparent window
+# Full screen
+root.attributes("-fullscreen", True)
 
 # Style configuration for ttk
 style = ttk.Style()
@@ -37,14 +43,14 @@ style.map('TButton',
           foreground=[('active', 'white')])
 
 # Title and subtitle
-title = tk.Label(root, text="Open Imager", font=("Arial", 20, "bold"), bg='#121212', fg='light blue')
-title.pack(pady=(10, 5))
+title = tk.Label(root, text="Open Imager", font=("Arial", 24, "bold"), bg='#f0f0f0', fg='#0066cc')
+title.pack(pady=(20, 10))
 
-subtitle = tk.Label(root, text="Orthopedic Gesture Control", font=("Arial", 14), bg='#121212', fg='light gray')
+subtitle = tk.Label(root, text="Orthopedic Gesture Control", font=("Arial", 16), bg='#f0f0f0', fg='#333')
 subtitle.pack(pady=(0, 20))
 
 # Button frame
-button_frame = tk.Frame(root, bg='#121212')
+button_frame = tk.Frame(root, bg='#f0f0f0')
 button_frame.pack(pady=10)
 
 # Buttons for each level
@@ -52,12 +58,18 @@ levels = ["Simple", "Intermediate", "Advanced"]
 for level in levels:
     ttk.Button(button_frame, text=level, command=lambda lvl=level: open_file(lvl)).pack(pady=5, fill='x')
 
-# Credits
-credits = tk.Label(root, text="A project by Bayoudh Seïf & Bouzian Hicham.", font=("Arial", 10), bg='#121212', fg='light gray')
-credits.pack(side='bottom', pady=(10, 0))
+# Buttons to control window
+control_frame = tk.Frame(root, bg='#f0f0f0')
+control_frame.pack(side='bottom', pady=20)
 
-credits2 = tk.Label(root, text="openimager.com", font=("Arial", 10), bg='#121212', fg='light gray')
-credits2.pack(side='bottom', pady=(0, 0))
+minimize_button = ttk.Button(control_frame, text="Minimize", command=minimize_window)
+minimize_button.grid(row=0, column=0, padx=10)
+
+fullscreen_button = ttk.Button(control_frame, text="Toggle Fullscreen", command=toggle_fullscreen)
+fullscreen_button.grid(row=0, column=1, padx=10)
+
+close_button = ttk.Button(control_frame, text="Close", command=close_window)
+close_button.grid(row=0, column=2, padx=10)
 
 # Run the application
 root.mainloop()
