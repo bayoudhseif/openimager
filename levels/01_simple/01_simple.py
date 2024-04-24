@@ -2,6 +2,7 @@ import cv2
 from cvzone.HandTrackingModule import HandDetector
 import numpy as np
 import random
+import subprocess
 
 cap = cv2.VideoCapture(0)
 cap.set(3, 1280)
@@ -108,3 +109,6 @@ while True:
 
 cap.release()
 cv2.destroyAllWindows()
+
+# After the level is completed or closed
+subprocess.Popen(["python", "main.py"], creationflags=subprocess.CREATE_NEW_CONSOLE)
