@@ -3,6 +3,8 @@ from tkinter import ttk, messagebox
 import os
 import subprocess
 
+import subprocess
+
 def open_file(difficulty):
     file_map = {
         "Simple": "levels/01_simple/01_simple.py",
@@ -12,9 +14,11 @@ def open_file(difficulty):
     file_name = file_map.get(difficulty)
     if file_name:
         try:
+            root.destroy()  # Close the main menu window
             subprocess.Popen(["python", file_name], creationflags=subprocess.CREATE_NEW_CONSOLE)
         except Exception as e:
             messagebox.showerror("Error", f"Failed to open {file_name}\n{e}")
+
 
 def minimize_window():
     root.iconify()
