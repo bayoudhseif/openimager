@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import ttk, messagebox
 import os
+import subprocess
 
 def open_file(difficulty):
     file_map = {
@@ -11,7 +12,7 @@ def open_file(difficulty):
     file_name = file_map.get(difficulty)
     if file_name:
         try:
-            os.system(f"python {file_name}")
+            subprocess.Popen(["python", file_name], creationflags=subprocess.CREATE_NEW_CONSOLE)
         except Exception as e:
             messagebox.showerror("Error", f"Failed to open {file_name}\n{e}")
 
