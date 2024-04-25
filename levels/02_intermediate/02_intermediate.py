@@ -12,6 +12,10 @@ cap.set(4, 720)   # Height
 # Initialize the hand detector
 detector = HandDetector(detectionCon=0.8)
 
+# Before your while loop
+cv2.namedWindow("Snake Game", cv2.WINDOW_NORMAL)
+cv2.setWindowProperty("Snake Game", cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
+
 def initialize_game():
     # Resets or initializes the game state for a new game
     return {
