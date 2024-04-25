@@ -47,10 +47,10 @@ def gesture_control():
             success, image = cap.read()
             if not success:
                 continue
-            
+
             image = cv2.cvtColor(cv2.flip(image, 1), cv2.COLOR_BGR2RGB)
             results = hands.process(image)
-            
+
             if results.multi_hand_landmarks:
                 for hand_landmarks in results.multi_hand_landmarks:
                     wrist = hand_landmarks.landmark[mp_hands.HandLandmark.WRIST]
@@ -59,12 +59,12 @@ def gesture_control():
 
                     x = int(wrist.x * root.winfo_width())
                     y = int(wrist.y * root.winfo_height())
-                    
+
                     cursor_label.place(x=x, y=y)
                     cursor_label.lift()  # Ensure the label is always on top
-                    
-                    # Check if thumb and index fingertips are touching
-                    if get_distance(thumb_tip, index_tip) < 0.04:  # Threshold for "click" determined experimentally
+
+                    if get_distance(thumb_tip, index_tip) < 0.04:  # Adjust this threshold based on your setup
+                        print("Click Detected")  # Output to console when a click is detected
                         trigger_click(x, y)
                     
                     break  # Only consider the first hand
@@ -75,7 +75,6 @@ def gesture_control():
 def trigger_click(x, y):
     widget = root.winfo_containing(x, y)
     if widget and hasattr(widget, 'invoke'):
-        print("Click at:", x, y)
         widget.invoke()
 
 root = tk.Tk()
