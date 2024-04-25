@@ -49,13 +49,16 @@ def gesture_control():
             if not success:
                 continue
 
-            hands, img = detector.findHands(img, draw=False)
+            hands, img = detector.findHands(img, draw=False)  # Hands are detected from the flipped image
 
             if hands:
                 hand = hands[0]
                 lmList = hand["lmList"]  # List of 21 Landmark points
-                cursor_x = int(lmList[8][0] * root.winfo_width() / 1280)  # Scale cursor position to GUI size
+
+                # Adjust cursor position according to the flipped image
+                cursor_x = int((1280 - lmList[8][0]) * root.winfo_width() / 1280)  # 1280 should be replaced with the actual width if different
                 cursor_y = int(lmList[8][1] * root.winfo_height() / 720)
+
                 cursor_label.place(x=cursor_x, y=cursor_y)
                 cursor_label.lift()
 
@@ -72,6 +75,7 @@ def gesture_control():
     finally:
         cap.release()
         cv2.destroyAllWindows()
+
 
 def trigger_click(x, y):
     widget = root.winfo_containing(x, y)
