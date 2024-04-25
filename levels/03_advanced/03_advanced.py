@@ -84,7 +84,10 @@ def play_piano_sequence():
                 elapsed_time -= note.get_length()  # Update elapsed time for the next note
 
 def main():
-    cap = cv2.VideoCapture(0)  # Use camera 0
+    cap = cv2.VideoCapture(0)
+    cap.set(cv2.CAP_PROP_FRAME_WIDTH, 1280)
+    cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 720)
+
     detector = handDetector()
     gesture_count = 0  # Initialize a counter for correct gestures
     previous_number = 0
