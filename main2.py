@@ -6,21 +6,17 @@ import numpy as np
 mp_hands = mp.solutions.hands
 hands = mp_hands.Hands(min_detection_confidence=0.5, min_tracking_confidence=0.5)
 
-# Function to run an example script.
 def run_script(script_id):
     print(f"Running Script {script_id}")
 
-# Determine screen size
-screen_width, screen_height = 1920, 1080  # Adjust this to your screen's resolution if needed
+screen_width, screen_height = 1920, 1080
 
-# Button properties, scaled based on screen size
 buttons = [
     {"name": "Script 1", "rect": [50, 100, 300, 200], "action": lambda: run_script(1)},
     {"name": "Script 2", "rect": [350, 100, 300, 200], "action": lambda: run_script(2)},
     {"name": "Script 3", "rect": [650, 100, 300, 200], "action": lambda: run_script(3)},
 ]
 
-# Check if a point is inside a rectangle
 def is_inside_rect(point, rect):
     x, y = point
     rx, ry, rw, rh = rect
@@ -46,15 +42,16 @@ while cap.isOpened():
     if results.multi_hand_landmarks:
         for hand_landmarks in results.multi_hand_landmarks:
             index_tip = hand_landmarks.landmark[mp_hands.HandLandmark.INDEX_FINGER_TIP]
+            thumb_tip = hand_landmarks.landmark[mp_hands.HandLandmark.THUMB_TIP]
             index_x, index_y = int(index_tip.x * frame_width), int(index_tip.y * frame_height)
+            thumb_x, thumb_y = int(thumb_tip.x * frame_width), int(thumb_tip.y * frame_height)
 
             for button in buttons:
                 if is_inside_rect((index_x, index_y), button["rect"]):
                     cv2.rectangle(frame, (button["rect"][0], button["rect"][1]), (button["rect"][0] + button["rect"][2], button["rect"][1] + button["rect"][3]), (0, 255, 0), -1)
-                    # Check for click gesture
-                    thumb_tip = hand_landmarks.landmark[mp_hands.HandLandmark.THUMB_TIP]
-                    distance = np.linalg.norm([thumb_tip.x - index_tip.x, thumb_tip.y - index_tip.y])
-                    if distance < 0.02:  # Threshold for "click"
+                    # Improved click detection
+                    distance = np.linalg.norm([thumb_x - index_x, thumb_y - index_y])
+                    if distance < 15:  # Adjust this threshold based on testing
                         button["action"]()
                 else:
                     cv2.rectangle(frame, (button["rect"][0], button["rect"][1]), (button["rect"][0] + button["rect"][2], button["rect"][1] + button["rect"][3]), (255, 0, 0), -1)
