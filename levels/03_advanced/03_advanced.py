@@ -92,6 +92,10 @@ def main():
     display_text = f"Show {current_number} fingers"
     last_gesture_time = time.time()  # Initialize the time of the last gesture
 
+    # Set up fullscreen
+    cv2.namedWindow("Image", cv2.WND_PROP_FULLSCREEN)
+    cv2.setWindowProperty("Image", cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
+
     # Initialize pygame mixer
     pygame.mixer.init()
 
@@ -103,6 +107,8 @@ def main():
         success, img = cap.read()
         img = detector.findHands(img)
         lmList = detector.findPosition(img, draw=False)
+        # Flip the image to reverse
+        img = cv2.flip(img, 1)
         
         if lmList:
             fingers_count = detector.countFingers(img, lmList)
