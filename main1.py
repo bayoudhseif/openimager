@@ -1,17 +1,20 @@
 import tkinter as tk
 from tkinter import ttk, messagebox
 import cv2
-import mediapipe as mp
+from cvzone.HandTrackingModule import HandDetector
 import subprocess
 import threading
-import math
 
-# Initialize MediaPipe hand model
-mp_hands = mp.solutions.hands
-hands = mp_hands.Hands(min_detection_confidence=0.5, min_tracking_confidence=0.5)
-
-# Initialize the webcam
+# Initialize the webcam and cvzone hand detector
 cap = cv2.VideoCapture(0)
+cap.set(3, 1280)  # Width
+cap.set(4, 720)   # Height
+detector = HandDetector(detectionCon=0.8)
+
+# Grabbing thresholds
+grab_threshold = 30
+release_threshold = 40
+is_grabbing = False
 
 def open_file(difficulty):
     file_map = {
@@ -38,36 +41,34 @@ def close_window():
 def toggle_fullscreen():
     root.attributes("-fullscreen", not root.attributes("-fullscreen"))
 
-def get_distance(landmark1, landmark2):
-    return math.sqrt((landmark1.x - landmark2.x) ** 2 + (landmark1.y - landmark2.y) ** 2)
-
 def gesture_control():
+    global is_grabbing
     try:
         while True:
-            success, image = cap.read()
+            success, img = cap.read()
             if not success:
                 continue
 
-            image = cv2.cvtColor(cv2.flip(image, 1), cv2.COLOR_BGR2RGB)
-            results = hands.process(image)
+            hands, img = detector.findHands(img, draw=False)
 
-            if results.multi_hand_landmarks:
-                for hand_landmarks in results.multi_hand_landmarks:
-                    wrist = hand_landmarks.landmark[mp_hands.HandLandmark.WRIST]
-                    thumb_tip = hand_landmarks.landmark[mp_hands.HandLandmark.THUMB_TIP]
-                    index_tip = hand_landmarks.landmark[mp_hands.HandLandmark.INDEX_FINGER_TIP]
+            if hands:
+                hand = hands[0]
+                lmList = hand["lmList"]  # List of 21 Landmark points
+                cursor_x = int(lmList[8][0] * root.winfo_width() / 1280)  # Scale cursor position to GUI size
+                cursor_y = int(lmList[8][1] * root.winfo_height() / 720)
+                cursor_label.place(x=cursor_x, y=cursor_y)
+                cursor_label.lift()
 
-                    x = int(wrist.x * root.winfo_width())
-                    y = int(wrist.y * root.winfo_height())
+                length, _, _ = detector.findDistance(lmList[8][:2], lmList[12][:2], img)  # Distance between index and middle fingertip
 
-                    cursor_label.place(x=x, y=y)
-                    cursor_label.lift()  # Ensure the label is always on top
+                if not is_grabbing and length < grab_threshold:
+                    is_grabbing = True
+                    print("Click Start Detected")  # Debugging print for click start
+                    trigger_click(cursor_x, cursor_y)
+                elif is_grabbing and length > release_threshold:
+                    is_grabbing = False
+                    print("Click End Detected")  # Debugging print for click end
 
-                    if get_distance(thumb_tip, index_tip) < 0.04:  # Adjust this threshold based on your setup
-                        print("Click Detected")  # Output to console when a click is detected
-                        trigger_click(x, y)
-                    
-                    break  # Only consider the first hand
     finally:
         cap.release()
         cv2.destroyAllWindows()
@@ -75,6 +76,7 @@ def gesture_control():
 def trigger_click(x, y):
     widget = root.winfo_containing(x, y)
     if widget and hasattr(widget, 'invoke'):
+        print(f"Triggering click on widget at ({x}, {y})")
         widget.invoke()
 
 root = tk.Tk()
