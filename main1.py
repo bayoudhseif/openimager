@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import ttk, messagebox
 import cv2
+import pyautogui
 from cvzone.HandTrackingModule import HandDetector
 import subprocess
 import threading
@@ -9,7 +10,7 @@ import threading
 cap = cv2.VideoCapture(0)
 cap.set(3, 1280)  # Width
 cap.set(4, 720)   # Height
-detector = HandDetector(detectionCon=0.8)
+detector = HandDetector(detectionCon=0.8, maxHands=1)
 
 # Grabbing thresholds
 grab_threshold = 30
@@ -41,6 +42,11 @@ def close_window():
 def toggle_fullscreen():
     root.attributes("-fullscreen", not root.attributes("-fullscreen"))
 
+def window_to_screen(x, y):
+    screen_x = root.winfo_rootx() + x
+    screen_y = root.winfo_rooty() + y
+    return screen_x, screen_y
+
 def gesture_control():
     global is_grabbing
     try:
@@ -49,39 +55,36 @@ def gesture_control():
             if not success:
                 continue
 
-            hands, img = detector.findHands(img, draw=False)  # Hands are detected from the flipped image
+            img = cv2.flip(img, 1)
+            hands, img = detector.findHands(img, draw=False)
 
             if hands:
                 hand = hands[0]
-                lmList = hand["lmList"]  # List of 21 Landmark points
+                lmList = hand["lmList"]
 
-                # Adjust cursor position according to the flipped image
-                cursor_x = int((1280 - lmList[8][0]) * root.winfo_width() / 1280)  # 1280 should be replaced with the actual width if different
+                cursor_x = int(lmList[8][0] * root.winfo_width() / 1280)
                 cursor_y = int(lmList[8][1] * root.winfo_height() / 720)
-
+                
+                screen_x, screen_y = window_to_screen(cursor_x, cursor_y)
                 cursor_label.place(x=cursor_x, y=cursor_y)
                 cursor_label.lift()
 
-                length, _, _ = detector.findDistance(lmList[8][:2], lmList[12][:2], img)  # Distance between index and middle fingertip
+                length, _, _ = detector.findDistance(lmList[8][:2], lmList[12][:2], img)
 
                 if not is_grabbing and length < grab_threshold:
                     is_grabbing = True
-                    print("Click Start Detected")  # Debugging print for click start
-                    trigger_click(cursor_x, cursor_y)
+                    trigger_click(screen_x, screen_y)
                 elif is_grabbing and length > release_threshold:
                     is_grabbing = False
-                    print("Click End Detected")  # Debugging print for click end
 
     finally:
         cap.release()
         cv2.destroyAllWindows()
 
 def trigger_click(x, y):
-    widget = root.winfo_containing(x, y)
-    if widget and hasattr(widget, 'invoke'):
-        widget.invoke()  # Continue to invoke the widget directly, if possible.
-        print(f"Triggering click on widget at ({x}, {y})")
-        pyautogui.click(x, y)  # Simulate a mouse click at the cursor position
+    if is_grabbing:
+        pyautogui.click(x, y)
+        print(f"Clicked at ({x}, {y})")  # Debug info
 
 root = tk.Tk()
 root.title("Gesture Control Interface")
