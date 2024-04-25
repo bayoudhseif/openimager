@@ -62,7 +62,8 @@ def gesture_control():
                 cursor_label.place(x=cursor_x, y=cursor_y)
                 cursor_label.lift()
 
-                length, _, _ = detector.findDistance(lmList[8][:2], lmList[12][:2], img)  # Distance between index and middle fingertip
+                # Use thumb tip and index finger tip for distance measurement
+                length, _, _ = detector.findDistance(lmList[4][:2], lmList[8][:2], img)  # Distance between thumb tip and index fingertip
 
                 if not is_grabbing and length < grab_threshold:
                     is_grabbing = True
@@ -75,6 +76,7 @@ def gesture_control():
     finally:
         cap.release()
         cv2.destroyAllWindows()
+
 
 
 def trigger_click(x, y):
