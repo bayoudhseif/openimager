@@ -73,14 +73,12 @@ def gesture_control():
         cap.release()
         cv2.destroyAllWindows()
 
-
-
-
 def trigger_click(x, y):
     widget = root.winfo_containing(x, y)
     if widget and hasattr(widget, 'invoke'):
         print(f"Triggering click on widget at ({x}, {y})")
         widget.invoke()
+
 
 root = tk.Tk()
 root.title("Gesture Control Interface")
