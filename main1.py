@@ -42,6 +42,7 @@ def toggle_fullscreen():
     root.attributes("-fullscreen", not root.attributes("-fullscreen"))
 
 def gesture_control():
+    global is_grabbing
     try:
         while True:
             success, img = cap.read()
@@ -55,19 +56,21 @@ def gesture_control():
                 lmList = hand["lmList"]  # List of 21 Landmark points
 
                 # Adjust cursor position according to the flipped image
-                cursor_x = int((1280 - lmList[8][0]) * root.winfo_width() / 1280)  # Adjust for actual video frame width
+                cursor_x = int((1280 - lmList[8][0]) * root.winfo_width() / 1280)  # 1280 should be replaced with the actual width if different
                 cursor_y = int(lmList[8][1] * root.winfo_height() / 720)
 
                 cursor_label.place(x=cursor_x, y=cursor_y)
                 cursor_label.lift()
 
-                # Measure the distance between the thumb tip and index finger tip
-                length, _, _ = detector.findDistance(lmList[4][:2], lmList[8][:2], img)
+                length, _, _ = detector.findDistance(lmList[8][:2], lmList[12][:2], img)  # Distance between index and middle fingertip
 
-                # Check if the gesture for clicking is made
-                if length < grab_threshold:
-                    print("Click Detected")  # Debugging print for click
+                if not is_grabbing and length < grab_threshold:
+                    is_grabbing = True
+                    print("Click Start Detected")  # Debugging print for click start
                     trigger_click(cursor_x, cursor_y)
+                elif is_grabbing and length > release_threshold:
+                    is_grabbing = False
+                    print("Click End Detected")  # Debugging print for click end
 
     finally:
         cap.release()
@@ -78,7 +81,6 @@ def trigger_click(x, y):
     if widget and hasattr(widget, 'invoke'):
         print(f"Triggering click on widget at ({x}, {y})")
         widget.invoke()
-
 
 root = tk.Tk()
 root.title("Gesture Control Interface")
