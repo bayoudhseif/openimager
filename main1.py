@@ -79,8 +79,9 @@ def gesture_control():
 def trigger_click(x, y):
     widget = root.winfo_containing(x, y)
     if widget and hasattr(widget, 'invoke'):
+        widget.invoke()  # Continue to invoke the widget directly, if possible.
         print(f"Triggering click on widget at ({x}, {y})")
-        widget.invoke()
+        pyautogui.click(x, y)  # Simulate a mouse click at the cursor position
 
 root = tk.Tk()
 root.title("Gesture Control Interface")
