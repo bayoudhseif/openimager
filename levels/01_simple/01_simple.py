@@ -59,6 +59,9 @@ def generateNewPlantingZone(exclude_pos, img_size, zone_size):
 
 singleRect = DragRect([640, 360])
 
+cv2.namedWindow("Image", cv2.WINDOW_NORMAL)
+cv2.setWindowProperty("Image", cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
+
 while True:
     success, img = cap.read()
     if not success:
