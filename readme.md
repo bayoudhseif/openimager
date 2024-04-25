@@ -8,7 +8,8 @@ Installed versions:
 Python 3.11.7
 
 To do:
-- Fix advanced level bug where it doesnt close.
+- <s>Fix advanced level bug where it doesnt close. </s>
 - Add interface interaction with hand gestures.
 - Fix screen sizes on all levels.
 - Add clear interface en instructions on all levels, button to close or reset
+- Open all windows in fullscreen
