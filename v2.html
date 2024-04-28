@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Open Imager Interface</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: rgba(3, 11, 23, 0.95); /* Slightly transparent background */
+            font-family: 'Montserrat', sans-serif; /* Changed font to Montserrat */
+            color: #31d2f2;
+        }
+        header {
+            text-align: center;
+            padding: 20px 0;
+            background-color: rgba(2, 35, 63, 0.8); /* Transparency added */
+            border-bottom: 5px solid #31d2f2;
+        }
+        header h1 {
+            margin: 0;
+            font-weight: 700;
+            font-size: 2.5rem;
+        }
+        header p {
+            font-weight: 400; /* Adjusted from 300 for better readability */
+            color: #31d2f2;
+        }
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            padding: 20px;
+        }
+        .grid-item {
+            background-color: rgba(2, 35, 63, 0.85); /* Transparency added */
+            border: 1px solid #31d2f2;
+            border-radius: 5px;
+            padding: 10px;
+            font-size: 1.2rem;
+            position: relative;
+            transition: transform 0.3s; /* Added transition for hover effect */
+            text-align: center; /* Center text */
+        }
+        .grid-item:hover {
+            transform: scale(1.05); /* Scale effect on hover */
+        }
+        .grid-item img {
+            width: 100%;
+            height: auto;
+            border-radius: 5px;
+            opacity: 0.9; /* Slightly more visible */
+            cursor: pointer; /* Indicates the image is clickable */
+        }
+        .grid-item span {
+            display: block; /* Block display for proper centering */
+            margin-top: 8px; /* Space between image and text */
+        }
+        .button-container {
+            display: flex;
+            justify-content: space-around;
+            padding: 20px 0;
+        }
+        button {
+            background-color: rgba(2, 25, 39, 0.8); /* Transparency added */
+            color: #31d2f2;
+            border: 1px solid #31d2f2;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-family: 'Montserrat', sans-serif; /* Changed font to Montserrat */
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s, opacity 0.3s;
+        }
+        button:hover {
+            background-color: rgba(3, 27, 46, 0.9); /* Darker on hover */
+            transform: translateY(-2px);
+            opacity: 1; /* More visible on hover */
+        }
+        .icon {
+            height: 1em;
+            vertical-align: bottom;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Open Imager</h1>
+        <p>Enhance your motor skills through visual training.</p>
+    </header>
+    <div class="grid-container">
+        <div class="grid-item">
+            <img src="logo.png" alt="Skeleton View" onclick="alert('Skeleton View Clicked')">
+            <span>Skeleton View</span>
+        </div>
+        <div class="grid-item">
+            <img src="logo.png" alt="DNA Analysis" onclick="alert('DNA Analysis Clicked')">
+            <span>DNA Analysis</span>
+        </div>
+        <div class="grid-item">
+            <img src="logo.png" alt="Heartbeat Monitor" onclick="alert('Heartbeat Monitor Clicked')">
+            <span>Heartbeat Monitor</span>
+        </div>
+    </div>
+    <div class="button-container">
+        <button onclick="alert('Basic Button Clicked')"> Basic </button>
+        <button onclick="alert('Intermediate Button Clicked')"> Intermediate </button>
+        <button onclick="alert('Advanced Button Clicked')"> Advanced </button>
+    </div>
+</body>
+</html>
