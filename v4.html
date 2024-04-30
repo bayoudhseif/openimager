@@ -59,8 +59,8 @@ a:hover {
 
 #card-container {
   margin-top: 13.5vh;
-  width: 100%;
-  height: 47.25vh;
+  width: 40vh;
+  height: 57.25vh;
   display: flex;
   background: linear-gradient(0deg, #4658f51a 0%, rgba(17, 17, 17, 0) 100%);
   border: 1px #095d9e solid;
@@ -94,16 +94,15 @@ a:hover {
 
 .option-button {
   width: 100%;
-  height: calc((100vh - 100px - 4vh) / 4); /* Adjusted from 25vh to calculated value */
+  height: calc((100vh - 100px - 4vh) / 4);
   padding: 10vh 0;
   margin: 2vh 10px;
   margin-left: 0;
-  border: 2px #111 solid;
-  outline: 1px #095d9e solid;
-  background-color: transparent;
+  background-color: rgba(255, 255, 255, 0.5); /* White with 50% transparency */
+  border: none; /* Remove border */
   font-size: 14px;
   letter-spacing: 1px;
-  color: #fff;
+  color: #000; /* Change text color to black for better visibility */
   cursor: pointer;
   transition: 300ms all ease-out;
 }
@@ -127,13 +126,33 @@ a:hover {
   /* ... (rest of your CSS) ... */
 }
 .option-button:hover, .option-button:focus, .option-button.active {
-  background-color: #4658f51a;
+  background-color: #ffffff69;
 }
 
 .option-button.active {
   border: 2px #095d9e solid;
   background-color: #095d9e;
   color: #111111;
+}
+
+.level-box {
+  width: 20.25vw; /* Set the width */
+  margin-top: 44px;
+  padding: 20px;
+  background: linear-gradient(0deg, #4658f51a 0%, rgba(17, 17, 17, 0) 100%);
+  color: #fff;
+  text-align: center;
+  border: 1px #095d9e solid;
+  border-radius: 5px;
+  -webkit-animation: entrance 400ms 800ms linear backwards 1;
+  animation: entrance 400ms 800ms linear backwards 1;
+}
+
+.level-box h1 {
+  font-size: 32px;
+  color: #095d9e;
+  letter-spacing: 1px;
+  text-transform: uppercase;
 }
 
 @-webkit-keyframes entrance {
@@ -148,11 +167,14 @@ a:hover {
 </head>
 <body>
     <div id="content-container">
-      <div id="main-container">
-        <div id="card-container">
-          <div id="card-component"></div>
-        </div>
-      </div>
+        <div id="main-container">
+            <div id="card-container">
+              <div id="card-component"></div>
+            </div>
+            <div class="level-box">
+              <h1>Basic Level</h1>
+            </div>
+          </div>
       <div id="options-container">
         <div id="buttons-container">
           <button id="btn-0" class="option-button" onclick="setAnim(this)">Basic</button>
