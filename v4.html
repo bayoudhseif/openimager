@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Open Imager</title>
+  <link rel="stylesheet" href="v4.css">
+  <style>
+body {
+  background: #1e1e1e url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAG0lEQVQYV2P8//+/FCMj4zMGJMCIzIGxKRQEAJgPBAbJqUVTAAAAAElFTkSuQmCC) repeat;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  font-family: "Montserrat", sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: #1e1e1e;
+  margin: 0;
+  padding: 0;
+}
+
+#title-text {
+  background-color: #095d9e;
+  padding: 0 5px 3px 5px;
+  color: #111111;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-size: 32px;
+  letter-spacing: 2px;
+  margin: 20px 0 10px;
+  border: 1px #095d9e solid;
+  border-radius: 5px;
+}
+
+#title-text,
+#subtitle-text,
+#title-line::before {
+  font-weight: 500;
+}
+
+#subtitle-text, #title-line::before {
+  opacity: 0.3;
+  margin: 0 0 10px 0;
+  letter-spacing: 1px;
+}
+
+a {
+  color: #095d9e;
+}
+a:hover {
+  background: #095d9e;
+  color: #111;
+  text-decoration: none;
+}
+
+#main-container {
+  position: relative;
+}
+
+#card-container {
+  margin-top: 13.5vh;
+  width: 40vh;
+  height: 51.75vh; /* Reduced height by 1.5vh */
+  display: flex;
+  background: rgba(255, 255, 255, 0.3);
+  border: none;
+  transition: 300ms all ease-out;
+  align-items: center;
+  justify-content: center;
+  padding: 25px;
+  -webkit-animation: entrance 400ms 800ms linear backwards 1;
+  animation: entrance 400ms 800ms linear backwards 1;
+}
+
+#card-container.active {
+  border: 2px #095d9e solid;
+  background-color: #095d9e;
+  color: #111111;
+}
+
+#card-component {
+  margin: auto;
+}
+
+#description-container {
+  -webkit-animation: entrance 400ms 1000ms linear backwards 1;
+  animation: entrance 400ms 1000ms linear backwards 1;
+}
+
+#options-container {
+  left: 50px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0;
+  align-items: flex-start;
+  position: absolute;
+  top: 0;
+  -webkit-animation: entrance 400ms 1400ms linear backwards 1;
+  animation: entrance 400ms 1400ms linear backwards 1;
+}
+
+.option-button {
+  width: 100%;
+  height: calc((100vh - 100px - 4vh) / 4);
+  margin: 2vh 10px;
+  margin-left: 0;
+  background-color: rgba(255, 255, 255, 0.3);
+  border: none;
+  transition: 300ms all ease-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 25px;
+}
+
+.option-button:hover, .option-button:focus, .option-button.active {
+  background-color: #ffffff69;
+}
+
+.option-button img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+#main-container {
+  position: relative;
+  width: calc(50% - 50px);
+}
+
+#content-container {
+  display: flex;
+  justify-content: flex-start;
+  padding-left: calc(20vh + 100px);
+  height: 100vh;
+}
+
+#buttons-container {
+  display: flex;
+  flex-direction: column;
+  width: 20vh;
+}
+
+.option-button.active {
+  border: 2px #095d9e solid;
+  background-color: #095d9e;
+  color: #111111;
+}
+
+.level-box {
+  display: flex;
+  flex-direction: column;
+  width: 23vw;
+  margin-top: 44px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.3);
+  border: none;
+  transition: 300ms all ease-out;
+  align-items: center;
+  justify-content: center;
+  color: #1e1e1e; /* Changed text color to match the page background color */
+  text-align: center;
+  height: 8.75vh; /* Increased height by 1.5vh */
+  -webkit-animation: entrance 400ms 800ms linear backwards 1;
+  animation: entrance 400ms 800ms linear backwards 1;
+}
+
+.level-box.active {
+  border: 2px #095d9e solid;
+  background-color: #095d9e;
+  color: #111111;
+}
+
+.level-box h1 {
+  margin: 0; /* remove any default margins */
+  font-size: 32px;
+  color: #ffffff8c;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+#card-component {
+  padding: 40px;
+}
+
+#card-component img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+.title-box {
+  display: flex;
+  flex-direction: column;
+  width: 50vw;
+  right: 50px;
+  margin-top: 13.5vh;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.3);
+  border: none;
+  transition: 300ms all ease-out;
+  align-items: center;
+  justify-content: center;
+  color: #1e1e1e;
+  text-align: center;
+  height: 8.75vh;
+  -webkit-animation: entrance 400ms 800ms linear backwards 1;
+  animation: entrance 400ms 800ms linear backwards 1;
+  position: absolute;
+}
+
+.title-box.active {
+  border: 2px #095d9e solid;
+  background-color: #095d9e;
+  color: #111111;
+}
+
+.title-box h1 {
+  margin: 0;
+  font-size: 50px; /* Adjust the size as needed to match your design */
+  color: #ffffff; /* Full white text */
+  letter-spacing: 3px; /* Increase letter spacing to match the style */
+  text-transform: uppercase;
+  font-weight:600; /* Make the font bold */
+  /* Add any other properties that are needed to match the style of the text in the image */
+}
+
+.box.full-width {
+  width: 51vw; /* Adjust as needed */
+  bottom: 13.5vh;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.3); /* Semi-transparent white background */
+  border: none;
+  transition: 300ms all ease-out;
+  align-items: center;
+  justify-content: center;
+  color: #1e1e1e;
+  text-align: center;
+  height: auto; /* Adjust as needed */
+  position: absolute;
+  right: 50px; /* 50px from the right */
+  transform: none; /* Remove the centering transform */
+  -webkit-animation: entrance 400ms 800ms linear backwards 1;
+  animation: entrance 400ms 800ms linear backwards 1;
+}
+
+.box.full-width.active {
+  border: 2px #095d9e solid;
+  background-color: #095d9e;
+  color: #111111;
+}
+
+.box.full-width h2 {
+  margin: 0;
+  font-size: 32px; /* Adjust as needed */
+  color: #ffffff; /* Full white text */
+  letter-spacing: 1px; /* Increase letter spacing to match the style */
+  text-transform: uppercase;
+  font-weight:600; /* Make the font bold */
+}
+
+#ecg-canvas {
+  width: 100%; /* Full width of the box */
+  height: 200px; /* Adjust as needed */
+  background: #000000; /* Black background */
+}
+
+
+@-webkit-keyframes entrance {
+  to, 20%, 40%, 60%, 80% {
+    opacity: 1;
+  }
+  from, 10%, 30%, 50%, 70%, 90% {
+    opacity: 0;
+  }
+}
+  </style>
+</head>
+<body>
+    <div id="content-container">
+        <div class="title-box">
+            <h1> </h1>
+          </div>
+          <div class="box full-width">
+            <h2></h2>
+            <canvas id="ecg-canvas"></canvas>
+          </div>
+        <div id="main-container">
+            <div id="card-container">
+                <div id="card-component">
+                    <img src="images/hand01.png" alt="Logo">
+                  </div>
+            </div>
+            <div class="level-box">
+              <h1>PROCEED</h1>
+            </div>
+          </div>
+      <div id="options-container">
+        <div id="buttons-container">
+            <button id="btn-0" class="option-button" onclick="setAnim(this)">
+                <img src="images/hand01.png" alt="Image 1">
+              </button>
+              <button id="btn-1" class="option-button" onclick="setAnim(this)">
+                <img src="images/hand02.png" alt="Image 2">
+              </button>
+              <button id="btn-2" class="option-button" onclick="setAnim(this)">
+                <img src="images/hand03.png" alt="Image 3">
+              </button>
+        </div>
+      </div>
+    </div>
+    
+    <script src="v4.js"></script>
+    <script>
+        function drawECG() {
+          const canvas = document.getElementById('ecg-canvas');
+          const ctx = canvas.getContext('2d');
+          ctx.strokeStyle = '#00ffcc';
+          ctx.lineWidth = 2;
+          let x = 0;
+          let dx = 2;
+      
+          // More realistic ECG cycle
+          const ecgCycle = [75, 70, 75, 80, 75, 70, 75, 50, 100, 75, 70, 75, 80, 75, 70, 75, 80, 75, 70, 75, 50, 100, 75];
+          let cycleIndex = 0;
+      
+          function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.beginPath();
+            ctx.moveTo(x, ecgCycle[cycleIndex]);
+            x += dx;
+            cycleIndex = Math.floor(Math.random() * ecgCycle.length); // Random index for more randomness
+            ctx.lineTo(x, ecgCycle[cycleIndex]);
+            ctx.stroke();
+      
+            if (x > canvas.width) {
+              x = 0;
+            }
+          }
+      
+          setInterval(draw, 40); // Slower animation
+        }
+      
+        drawECG();
+    </script>
+  </body>
+  </html>
