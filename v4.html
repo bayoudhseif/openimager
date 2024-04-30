@@ -54,20 +54,19 @@ a:hover {
 }
 
 #main-container {
-  width: 400px;
-  margin: auto;
   position: relative;
 }
 
 #card-container {
+  margin-top: 13.5vh;
   width: 100%;
-  height: 600px;
+  height: 47.25vh;
   display: flex;
   background: linear-gradient(0deg, #4658f51a 0%, rgba(17, 17, 17, 0) 100%);
   border: 1px #095d9e solid;
   border-radius: 5px;
   -webkit-animation: entrance 400ms 800ms linear backwards 1;
-          animation: entrance 400ms 800ms linear backwards 1;
+  animation: entrance 400ms 800ms linear backwards 1;
 }
 
 #card-component {
@@ -80,7 +79,6 @@ a:hover {
 }
 
 #options-container {
-  width: auto;
   left: 50px;
   height: 100vh;
   display: flex;
@@ -99,6 +97,7 @@ a:hover {
   height: calc((100vh - 100px - 4vh) / 4); /* Adjusted from 25vh to calculated value */
   padding: 10vh 0;
   margin: 2vh 10px;
+  margin-left: 0;
   border: 2px #111 solid;
   outline: 1px #095d9e solid;
   background-color: transparent;
@@ -107,6 +106,18 @@ a:hover {
   color: #fff;
   cursor: pointer;
   transition: 300ms all ease-out;
+}
+
+#main-container {
+  position: relative;
+  width: calc(50% - 50px); /* Subtract the space taken by the padding */
+}
+
+    #content-container {
+  display: flex;
+  justify-content: flex-start; /* Align children to the start of the container */
+  padding-left: calc(20vh + 100px); /* Add padding to create space from the left edge */
+  height: 100vh;
 }
 
 #buttons-container {
@@ -136,21 +147,18 @@ a:hover {
   </style>
 </head>
 <body>
-    <div id="main-container">
-      <div id="card-container">
-        <div id="card-component"></div>
+    <div id="content-container">
+      <div id="main-container">
+        <div id="card-container">
+          <div id="card-component"></div>
+        </div>
       </div>
-      <div id="description-container">
-        <h1 id="title-text">Open Imager</h1>
-        <p id="subtitle-text">Orthopedic Gesture Control</p>
-      </div>
-      <div id="title-line"></div>
-    </div>
-    <div id="options-container">
-      <div id="buttons-container">
-        <button id="btn-0" class="option-button" onclick="setAnim(this)">Basic</button>
-        <button id="btn-1" class="option-button" onclick="setAnim(this)">Intermediate</button>
-        <button id="btn-2" class="option-button" onclick="setAnim(this)">Advanced</button>
+      <div id="options-container">
+        <div id="buttons-container">
+          <button id="btn-0" class="option-button" onclick="setAnim(this)">Basic</button>
+          <button id="btn-1" class="option-button" onclick="setAnim(this)">Intermediate</button>
+          <button id="btn-2" class="option-button" onclick="setAnim(this)">Advanced</button>
+        </div>
       </div>
     </div>
     <script src="v4.js"></script>
