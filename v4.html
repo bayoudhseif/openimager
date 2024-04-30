@@ -228,7 +228,7 @@ a:hover {
 }
 
 .box.full-width {
-  width: 50vw; /* Adjust as needed */
+  width: 51vw; /* Adjust as needed */
   bottom: 13.5vh;
   padding: 20px;
   background: rgba(255, 255, 255, 0.3); /* Semi-transparent white background */
@@ -284,7 +284,7 @@ a:hover {
             <h1> </h1>
           </div>
           <div class="box full-width">
-            <h2>HAND ACTIVITY</h2>
+            <h2></h2>
             <canvas id="ecg-canvas"></canvas>
           </div>
         <div id="main-container">
@@ -320,29 +320,30 @@ a:hover {
           ctx.strokeStyle = '#00ffcc';
           ctx.lineWidth = 2;
           let x = 0;
-          let y = 75;
           let dx = 2;
-          let dy = 5;
-    
+      
+          // More realistic ECG cycle
+          const ecgCycle = [75, 70, 75, 80, 75, 70, 75, 50, 100, 75, 70, 75, 80, 75, 70, 75, 80, 75, 70, 75, 50, 100, 75];
+          let cycleIndex = 0;
+      
           function draw() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             ctx.beginPath();
-            ctx.moveTo(x, y);
+            ctx.moveTo(x, ecgCycle[cycleIndex]);
             x += dx;
-            y += (Math.random() - 0.5) * dy;
-            ctx.lineTo(x, y);
+            cycleIndex = Math.floor(Math.random() * ecgCycle.length); // Random index for more randomness
+            ctx.lineTo(x, ecgCycle[cycleIndex]);
             ctx.stroke();
-    
+      
             if (x > canvas.width) {
               x = 0;
-              y = 75;
             }
           }
-    
-          setInterval(draw, 30);
+      
+          setInterval(draw, 40); // Slower animation
         }
-    
+      
         drawECG();
-      </script>
+    </script>
   </body>
   </html>
