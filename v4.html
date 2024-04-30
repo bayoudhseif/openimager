@@ -227,6 +227,46 @@ a:hover {
   /* Add any other properties that are needed to match the style of the text in the image */
 }
 
+.box.full-width {
+  width: 50vw; /* Adjust as needed */
+  bottom: 13.5vh;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.3); /* Semi-transparent white background */
+  border: none;
+  transition: 300ms all ease-out;
+  align-items: center;
+  justify-content: center;
+  color: #1e1e1e;
+  text-align: center;
+  height: auto; /* Adjust as needed */
+  position: absolute;
+  right: 50px; /* 50px from the right */
+  transform: none; /* Remove the centering transform */
+  -webkit-animation: entrance 400ms 800ms linear backwards 1;
+  animation: entrance 400ms 800ms linear backwards 1;
+}
+
+.box.full-width.active {
+  border: 2px #095d9e solid;
+  background-color: #095d9e;
+  color: #111111;
+}
+
+.box.full-width h2 {
+  margin: 0;
+  font-size: 32px; /* Adjust as needed */
+  color: #ffffff; /* Full white text */
+  letter-spacing: 1px; /* Increase letter spacing to match the style */
+  text-transform: uppercase;
+  font-weight:600; /* Make the font bold */
+}
+
+#ecg-canvas {
+  width: 100%; /* Full width of the box */
+  height: 200px; /* Adjust as needed */
+  background: #000000; /* Black background */
+}
+
 
 @-webkit-keyframes entrance {
   to, 20%, 40%, 60%, 80% {
@@ -243,6 +283,10 @@ a:hover {
         <div class="title-box">
             <h1> </h1>
           </div>
+          <div class="box full-width">
+            <h2>HAND ACTIVITY</h2>
+            <canvas id="ecg-canvas"></canvas>
+          </div>
         <div id="main-container">
             <div id="card-container">
                 <div id="card-component">
@@ -250,7 +294,7 @@ a:hover {
                   </div>
             </div>
             <div class="level-box">
-              <h1>Plotting seeds</h1>
+              <h1>PROCEED</h1>
             </div>
           </div>
       <div id="options-container">
@@ -267,6 +311,38 @@ a:hover {
         </div>
       </div>
     </div>
+    
     <script src="v4.js"></script>
+    <script>
+        function drawECG() {
+          const canvas = document.getElementById('ecg-canvas');
+          const ctx = canvas.getContext('2d');
+          ctx.strokeStyle = '#00ffcc';
+          ctx.lineWidth = 2;
+          let x = 0;
+          let y = 75;
+          let dx = 2;
+          let dy = 5;
+    
+          function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.beginPath();
+            ctx.moveTo(x, y);
+            x += dx;
+            y += (Math.random() - 0.5) * dy;
+            ctx.lineTo(x, y);
+            ctx.stroke();
+    
+            if (x > canvas.width) {
+              x = 0;
+              y = 75;
+            }
+          }
+    
+          setInterval(draw, 30);
+        }
+    
+        drawECG();
+      </script>
   </body>
   </html>
