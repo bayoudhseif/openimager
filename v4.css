@@ -1,0 +1,130 @@
+body {
+    background: #1e1e1e url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAG0lEQVQYV2P8//+/FCMj4zMGJMCIzIGxKRQEAJgPBAbJqUVTAAAAAElFTkSuQmCC) repeat;
+    display: flex;
+    height: 100vh;
+    font-family: "Montserrat", sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: #fff;
+    margin: 0;
+    padding: 0;
+  }
+  
+  h1 {
+    background-color: #095d9e;
+    padding: 0 5px 3px 5px;
+    color: #111111;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-size: 32px;
+    letter-spacing: 2px;
+    margin: 20px 0 10px;
+    border: 1px #095d9e solid;
+    border-radius: 5px;
+  }
+  
+  h1,
+  p,
+  #shot .title::before {
+    font-weight: 500;
+  }
+  
+  p, #shot .title::before {
+    opacity: 0.3;
+    margin: 0 0 10px 0;
+    letter-spacing: 1px;
+  }
+  
+  a {
+    color: #095d9e;
+  }
+  a:hover {
+    background: #095d9e;
+    color: #111;
+    text-decoration: none;
+  }
+  
+  #shot {
+    width: 400px;
+    margin: auto;
+    position: relative;
+  }
+  #shot .card {
+    width: 100%;
+    height: 300px;
+    display: flex;
+    background: linear-gradient(0deg, #4658f51a 0%, rgba(17, 17, 17, 0) 100%);
+    border: 1px #095d9e solid;
+    border-radius: 5px;
+    -webkit-animation: entrance 400ms 800ms linear backwards 1;
+            animation: entrance 400ms 800ms linear backwards 1;
+  }
+  #shot .card #component {
+    margin: auto;
+  }
+  #shot .description {
+    -webkit-animation: entrance 400ms 1000ms linear backwards 1;
+            animation: entrance 400ms 1000ms linear backwards 1;
+  }
+  #shot .title {
+    height: 100%;
+    width: 5px;
+    position: absolute;
+    top: 0;
+    left: -50px;
+    background: #095d9e;
+    -webkit-animation: entrance 400ms 1200ms linear backwards 1;
+            animation: entrance 400ms 1200ms linear backwards 1;
+  }
+  #shot .title::before {
+    content: "sci-fi ui #X";
+    text-transform: uppercase;
+    text-align: right;
+    position: absolute;
+    left: -92px;
+    top: -17px;
+    transform-origin: 100% 100%;
+    transform: rotateZ(-90deg);
+  }
+  #shot .options {
+    width: 200px;
+    height: auto;
+    display: flex;
+    flex-wrap: wrap;
+    position: absolute;
+    top: 0;
+    right: -220px;
+    -webkit-animation: entrance 400ms 1400ms linear backwards 1;
+            animation: entrance 400ms 1400ms linear backwards 1;
+  }
+  #shot .options button {
+    height: 40px;
+    padding: 0 10px;
+    margin: 0 10px 15px 0;
+    border: 2px #111 solid;
+    outline: 1px #095d9e solid;
+    background-color: transparent;
+    font-size: 14px;
+    letter-spacing: 1px;
+    color: #fff;
+    cursor: pointer;
+    transition: 300ms all ease-out;
+  }
+  #shot .options button:hover, #shot .options button:focus, #shot .options button.active {
+    background-color: #4658f51a;
+  }
+  #shot .options button.active {
+    border: 2px #095d9e solid;
+    background-color: #095d9e;
+    color: #111111;
+  }
+  
+  @-webkit-keyframes entrance {
+    to, 20%, 40%, 60%, 80% {
+      opacity: 1;
+    }
+    from, 10%, 30%, 50%, 70%, 90% {
+      opacity: 0;
+    }
+  }
+  
