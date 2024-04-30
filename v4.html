@@ -82,11 +82,11 @@ a:hover {
 #options-container {
   width: auto;
   left: 50px;
-  height: calc(100vh - 100px - 4vh - 100vh); /* Adjusted from 80vh to calculated value */
+  height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  padding: 50px 0;
+  justify-content: center;
+  padding: 0;
   align-items: flex-start;
   position: absolute;
   top: 0;
@@ -148,9 +148,9 @@ a:hover {
     </div>
     <div id="options-container">
       <div id="buttons-container">
-        <button id="btn-0" class="option-button" onclick="setAnim(this)">flow-1</button>
-        <button id="btn-1" class="option-button" onclick="setAnim(this)">flow-2</button>
-        <button id="btn-2" class="option-button" onclick="setAnim(this)">flow-3</button>
+        <button id="btn-0" class="option-button" onclick="setAnim(this)">Basic</button>
+        <button id="btn-1" class="option-button" onclick="setAnim(this)">Intermediate</button>
+        <button id="btn-2" class="option-button" onclick="setAnim(this)">Advanced</button>
       </div>
     </div>
     <script src="v4.js"></script>
