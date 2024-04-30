@@ -5,26 +5,154 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Open Imager</title>
   <link rel="stylesheet" href="v4.css">
+  <style>
+    body {
+  background: #1e1e1e url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAG0lEQVQYV2P8//+/FCMj4zMGJMCIzIGxKRQEAJgPBAbJqUVTAAAAAElFTkSuQmCC) repeat;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  font-family: "Montserrat", sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: #fff;
+  margin: 0;
+  padding: 0;
+}
+
+#title-text {
+  background-color: #095d9e;
+  padding: 0 5px 3px 5px;
+  color: #111111;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-size: 32px;
+  letter-spacing: 2px;
+  margin: 20px 0 10px;
+  border: 1px #095d9e solid;
+  border-radius: 5px;
+}
+
+#title-text,
+#subtitle-text,
+#title-line::before {
+  font-weight: 500;
+}
+
+#subtitle-text, #title-line::before {
+  opacity: 0.3;
+  margin: 0 0 10px 0;
+  letter-spacing: 1px;
+}
+
+a {
+  color: #095d9e;
+}
+a:hover {
+  background: #095d9e;
+  color: #111;
+  text-decoration: none;
+}
+
+#main-container {
+  width: 400px;
+  margin: auto;
+  position: relative;
+}
+
+#card-container {
+  width: 100%;
+  height: 600px;
+  display: flex;
+  background: linear-gradient(0deg, #4658f51a 0%, rgba(17, 17, 17, 0) 100%);
+  border: 1px #095d9e solid;
+  border-radius: 5px;
+  -webkit-animation: entrance 400ms 800ms linear backwards 1;
+          animation: entrance 400ms 800ms linear backwards 1;
+}
+
+#card-component {
+  margin: auto;
+}
+
+#description-container {
+  -webkit-animation: entrance 400ms 1000ms linear backwards 1;
+          animation: entrance 400ms 1000ms linear backwards 1;
+}
+
+#options-container {
+  width: auto;
+  left: 50px;
+  height: calc(100vh - 100px - 4vh - 100vh); /* Adjusted from 80vh to calculated value */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 50px 0;
+  align-items: flex-start;
+  position: absolute;
+  top: 0;
+  -webkit-animation: entrance 400ms 1400ms linear backwards 1;
+  animation: entrance 400ms 1400ms linear backwards 1;
+}
+
+.option-button {
+  width: 100%;
+  height: calc((100vh - 100px - 4vh) / 4); /* Adjusted from 25vh to calculated value */
+  padding: 10vh 0;
+  margin: 2vh 10px;
+  border: 2px #111 solid;
+  outline: 1px #095d9e solid;
+  background-color: transparent;
+  font-size: 14px;
+  letter-spacing: 1px;
+  color: #fff;
+  cursor: pointer;
+  transition: 300ms all ease-out;
+}
+
+#buttons-container {
+  display: flex;
+  flex-direction: column;
+  width: 20vh; /* Adjust this value to change the width of the buttons container */
+  /* ... (rest of your CSS) ... */
+}
+.option-button:hover, .option-button:focus, .option-button.active {
+  background-color: #4658f51a;
+}
+
+.option-button.active {
+  border: 2px #095d9e solid;
+  background-color: #095d9e;
+  color: #111111;
+}
+
+@-webkit-keyframes entrance {
+  to, 20%, 40%, 60%, 80% {
+    opacity: 1;
+  }
+  from, 10%, 30%, 50%, 70%, 90% {
+    opacity: 0;
+  }
+}
+  </style>
 </head>
 <body>
-  <div id="shot">
-    <div class="card">
-      <div id="component"></div>
+    <div id="main-container">
+      <div id="card-container">
+        <div id="card-component"></div>
+      </div>
+      <div id="description-container">
+        <h1 id="title-text">Open Imager</h1>
+        <p id="subtitle-text">Orthopedic Gesture Control</p>
+      </div>
+      <div id="title-line"></div>
     </div>
-    <div class="description">
-      <h1>Open Imager</h1>
-      <p>Orthopedic Gesture Control</p>
-    </div>
-    <div class="title"></div>
-    <div class="options">
-      <p>Choose level</p>
-      <div class="btns">
-        <button id="btn-0" onclick="setAnim(this)">flow-1</button>
-        <button id="btn-1" onclick="setAnim(this)">flow-2</button>
-        <button id="btn-2" onclick="setAnim(this)">flow-3</button>
+    <div id="options-container">
+      <div id="buttons-container">
+        <button id="btn-0" class="option-button" onclick="setAnim(this)">flow-1</button>
+        <button id="btn-1" class="option-button" onclick="setAnim(this)">flow-2</button>
+        <button id="btn-2" class="option-button" onclick="setAnim(this)">flow-3</button>
       </div>
     </div>
-  </div>
-  <script src="v4.js"></script>
-</body>
-</html>
+    <script src="v4.js"></script>
+  </body>
+  </html>
