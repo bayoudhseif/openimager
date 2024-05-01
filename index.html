@@ -73,8 +73,6 @@ body {
     margin: auto; /* Center the image horizontally and vertically */
 }
 
-
-
 .index {
     margin: 10px;
     width: 210px;
@@ -82,18 +80,17 @@ body {
     background-color: #fff; /* Changed background color */
     background-size: contain;
     background-position: center;
-    font-size: 3rem; /* Set font size for text inside the index */
+    font-size: 2rem; /* Set font size for text inside the index */
     font-weight: 600; /* Set font weight for text inside the index */
     text-align: center; /* Center-align text */
     overflow: hidden; /* Hide overflowing text */
     color: #222222;
-    
+
     /* Add flexbox properties */
     display: flex;
     justify-content: center;
     align-items: center;
 }
-
 
 .title {
     margin: 10px;
@@ -114,14 +111,14 @@ body {
     align-items: center;
 }
 
-
 .info-card {
     margin: 10px;
+    padding: 20px; /* Add padding for better readability */
     width: 750px;
     height: 500px;
     background-color: #fff; /* Changed background color */
-    font-size: 1rem; /* Set font size for text inside the info card */
-    text-align: center; /* Center-align text */
+    font-size: 1.2rem; /* Increase font size for better readability */
+    text-align: justify; /* Justify-align text for a cleaner look */
     overflow: hidden; /* Hide overflowing text */
 }
 
@@ -136,22 +133,11 @@ body {
     align-items: center;
 }
 
-
 .program-container {
     display: flex;
     align-items: flex-start;
 }
 
-.info-card {
-    margin: 10px;
-    padding: 20px; /* Add padding for better readability */
-    width: 750px;
-    height: 500px;
-    background-color: #fff; /* Changed background color */
-    font-size: 1.2rem; /* Increase font size for better readability */
-    text-align: justify; /* Justify-align text for a cleaner look */
-    overflow: hidden; /* Hide overflowing text */
-}
 
 
 
@@ -178,17 +164,17 @@ body {
         
         <div class="program-description">
             <div class="a">
-            <div class="index" id="index"></div>
-            <div class="title" id="title"></div>
+                <div class="title" id="title"></div> <!-- Switched the position of title and index -->
+                <div class="index" id="index">START</div> <!-- Switched the position of title and index -->
             </div>
             <div class="info-card"></div>
         </div>
+        
     </div>
 
 <script>
 function showProgram(programName) {
     var callingCardImage = document.getElementById('calling-card-image');
-    var index = document.getElementById('index');
     var title = document.getElementById('title');
     var infoCard = document.querySelector('.info-card');
 
@@ -196,25 +182,21 @@ function showProgram(programName) {
     switch(programName) {
         case 'BALANCE':
             callingCardImage.src = "images/hand01.png";
-            index.textContent = "01";
             title.textContent = "BALANCE";
             infoCard.innerHTML = "<p>Establishing a solid foundation of balance is often considered fundamental before advancing to more complex movements requiring agility and dexterity.</p>";
             break;
         case 'AGILITY':
             callingCardImage.src = "images/hand02.png";
-            index.textContent = "02";
             title.textContent = "AGILITY";
             infoCard.innerHTML = "<p>Once a baseline of balance is achieved, agility training can help improve quickness, speed, and nimbleness in movements.</p>";
             break;
         case 'DEXTERITY':
             callingCardImage.src = "images/hand03.png";
-            index.textContent = "03";
             title.textContent = "DEXTERITY";
             infoCard.innerHTML = "<p>Finally, dexterity can be honed to enhance fine motor skills and precision in tasks requiring intricate hand-eye coordination.</p>";
             break;
         default:
             callingCardImage.src = "";
-            index.textContent = "";
             title.textContent = "";
             infoCard.innerHTML = "";
     }
