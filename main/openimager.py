@@ -2,15 +2,15 @@ import webview
 import subprocess
 
 def run_balance():
-    subprocess.Popen(["python", "levels/balance.py"], creationflags=subprocess.CREATE_NEW_CONSOLE)
+    subprocess.Popen(["python", "levels/balance/balance.py"], creationflags=subprocess.CREATE_NEW_CONSOLE)
     return "balance.py is running in a separate window."
 
 def run_agility():
-    subprocess.Popen(["python", "levels/agility.py"], creationflags=subprocess.CREATE_NEW_CONSOLE)
+    subprocess.Popen(["python", "levels/agility/agility.py"], creationflags=subprocess.CREATE_NEW_CONSOLE)
     return "agility.py is running in a separate window."
 
 def run_dexterity():
-    subprocess.Popen(["python", "levels/dexterity.py"], creationflags=subprocess.CREATE_NEW_CONSOLE)
+    subprocess.Popen(["python", "levels/dexterity/dexterity.py"], creationflags=subprocess.CREATE_NEW_CONSOLE)
     return "dexterity.py is running in a separate window."
 
 def create_window():
