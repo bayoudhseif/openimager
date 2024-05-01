@@ -6,7 +6,7 @@ app = Flask(__name__, template_folder='', static_folder='source')
 
 @app.route('/')
 def index():
-    return render_template('main.html')
+    return render_template('openimager.html')
 
 @app.route('/run_balance')
 def run_balance():
