@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Interactive Program Viewer</title>
+<!-- Add Google Fonts link for Montserrat -->
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f4f4f4; /* Changed background color for better readability */
+    font-family: 'Montserrat', sans-serif; /* Use Montserrat font */
+}
+
+.container {
+    display: flex;
+    align-items: flex-start;
+}
+
+.level-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.level-container button {
+    margin: 10px;
+    width: 200px;
+    height: 200px;
+    border: none;
+    background-color: #fff; /* Changed button background color */
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* Added transition for smooth hover effect */
+}
+
+.level-container button:hover {
+    background-color: #e0e0e0; /* Darker background color on hover */
+}
+
+.level-container button img {
+    max-width: 80%;
+    max-height: 80%;
+}
+
+.calling-card {
+    margin: 10px;
+    width: 450px;
+    height: 640px;
+    background-color: #fff; /* Changed background color */
+    background-size: contain;
+    background-position: center;
+    font-size: 1rem; /* Set font size for text inside the calling card */
+    text-align: center; /* Center-align text */
+    overflow: hidden; /* Hide overflowing text */
+}
+
+.index {
+    margin: 10px;
+    width: 210px;
+    height: 120px;
+    background-color: #fff; /* Changed background color */
+    background-size: contain;
+    background-position: center;
+    font-size: 4rem; /* Set font size for text inside the index */
+    font-weight: 600; /* Set font weight for text inside the index */
+    text-align: center; /* Center-align text */
+    overflow: hidden; /* Hide overflowing text */
+    color: #222222;
+}
+
+.title {
+    margin: 10px;
+    width: 520px;
+    height: 120px;
+    background-color: #fff; /* Changed background color */
+    background-size: contain;
+    background-position: center;
+    font-size: 3rem; /* Set font size for text inside the title */
+    font-weight: 600; /* Set font weight for text inside the title */
+    text-align: center; /* Center-align text */
+    overflow: hidden; /* Hide overflowing text */
+    color: #222222;
+
+    /* Add flexbox properties */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.info-card {
+    margin: 10px;
+    width: 750px;
+    height: 500px;
+    background-color: #fff; /* Changed background color */
+    font-size: 1rem; /* Set font size for text inside the info card */
+    text-align: center; /* Center-align text */
+    overflow: hidden; /* Hide overflowing text */
+}
+
+.program-description {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.a {
+    display: flex;
+    align-items: center;
+}
+
+
+.program-container {
+    display: flex;
+    align-items: flex-start;
+}
+</style>
+</head>
+<body>
+    <div class="container">
+        <div class="level-container">
+            <button data-image="images/hand01.png" aria-label="Program 1">
+                <img src="images/hand01.png" alt="Program 1">
+            </button>
+            <button data-image="images/hand02.png" aria-label="Program 2">
+                <img src="images/hand02.png" alt="Program 2">
+            </button>
+            <button data-image="images/hand03.png" aria-label="Program 3">
+                <img src="images/hand03.png" alt="Program 3">
+            </button>
+        </div>
+        <div class="program-container">
+            <div class="calling-card"></div>
+        </div>
+        <div class="program-description">
+            <div class="a">
+            <div class="index"></div>
+            <div class="title">OPEN IMAGER</div>
+            </div>
+            <div class="info-card"></div>
+        </div>
+    </div>
+    
+    
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const buttons = document.querySelectorAll('.level-container button');
+        const callingCard = document.querySelector('.calling-card');
+        const programTitle = document.querySelector('.title');
+
+        buttons.forEach(button => {
+            button.addEventListener('click', function() {
+                const imageUrl = this.getAttribute('data-image');
+                callingCard.style.backgroundImage = `url(${imageUrl})`;
+                const programLabel = this.getAttribute('aria-label');
+                programTitle.textContent = programLabel;
+            });
+        });
+    });
+    </script>
+</body>
+</html>
