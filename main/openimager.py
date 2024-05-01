@@ -20,8 +20,7 @@ def create_window():
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Interactive Program Viewer</title>
-<!-- Add Google Fonts link for Montserrat -->
+<title>Open Imager</title>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 /* Reset */
@@ -35,11 +34,6 @@ def create_window():
 .level-container button:hover {
     transform: scale(1.1); /* Scale up on hover */
     transition: transform 0.3s ease; /* Smooth transition */
-}
-
-/* Add animation for button click */
-.level-container button:active {
-    transform: scale(0.9); /* Shrink when clicked */
 }
 
 /* Add pulsating animation */
@@ -62,12 +56,11 @@ def create_window():
 
 body {
     background: #1e1e1e url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAG0lEQVQYV2P8//+/FCMj4zMGJMCIzIGxKRQEAJgPBAbJqUVTAAAAAElFTkSuQmCC) repeat;
-
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    font-family: 'Montserrat', sans-serif; /* Use Montserrat font */
+    font-family: 'Montserrat', sans-serif;
 }
 
 .container {
@@ -86,8 +79,8 @@ body {
     width: 200px;
     height: 200px;
     border: none;
-    background-color: #ffffff7a; /* Changed button background color */
-    cursor: pointer; /* Set cursor pointer */
+    background-color: #ffffff7a;
+    cursor: pointer;
     
 }
 
@@ -185,41 +178,22 @@ body {
     align-items: flex-start;
 }
 
-/* Add animation keyframes */
-@keyframes entrance {
-  to, 20%, 40%, 60%, 80% {
-    opacity: 1;
-  }
-  from, 10%, 30%, 50%, 70%, 90% {
-    opacity: 0;
-  }
-}
-
-/* Apply entrance animation to all elements */
-.container,
-.level-container,
-.level-container button,
-.calling-card,
-.index,
-.title,
-.info-card {
-    animation: entrance 1s forwards;
-}
 </style>
 </head>
 <body>
-    <body onload="showProgram('BALANCE')">
 
+    <body onload="showProgram('BALANCE')">  <!-- Set the initial program to 'BALANCE' -->
+        
     <div class="container">
         <div class="level-container">
             <button aria-label="BALANCE" onclick="showProgram('BALANCE')">
-                <img src="images/hand01.png" alt="Program 1">
+                <img src="source/images/balance.png" alt="balance">
             </button>
             <button aria-label="AGILITY" onclick="showProgram('AGILITY')">
-                <img src="images/hand02.png" alt="Program 2">
+                <img src="source/images/agility.png" alt="agility">
             </button>
             <button aria-label="DEXTERITY" onclick="showProgram('DEXTERITY')">
-                <img src="images/hand03.png" alt="Program 3">
+                <img src="source/images/dexterity.png" alt="dexterity">
             </button>
         </div>
         <div class="calling-card" id="calling-card">
@@ -228,14 +202,18 @@ body {
         
         <div class="program-description">
             <div class="a">
-                <div class="title" id="title"></div> <!-- Switched the position of title and index -->
-                <div class="index" id="index">START</div> <!-- Switched the position of title and index --></div>
-                <button onclick="pywebview.api.run_balance()">Run balance</button>
-                <button onclick="pywebview.api.run_agility()">Run agility</button>
-                <button onclick="pywebview.api.run_dexterity()">Run dexterity</button>
+                <div class="title" id="title"></div>
+                <button class="index" onclick="pywebview.api.run_balance()">START</button>
+            </div>
             <div class="info-card"></div>
         </div>
     </div>
+    <div>
+        <button onclick="pywebview.api.run_balance()">Run balance</button>
+        <button onclick="pywebview.api.run_agility()">Run agility</button>
+        <button onclick="pywebview.api.run_dexterity()">Run dexterity</button>
+    </div>
+    
 
 <script>
 function showProgram(programName) {
@@ -246,17 +224,17 @@ function showProgram(programName) {
     // Set image source, title, and description based on programName
     switch(programName) {
         case 'BALANCE':
-            callingCardImage.src = "images/hand01.png";
+            callingCardImage.src = "source/images/balance.png";
             title.textContent = "BALANCE";
             infoCard.innerHTML = "<p>Establishing a solid foundation of balance is often considered fundamental before advancing to more complex movements requiring agility and dexterity.</p>";
             break;
         case 'AGILITY':
-            callingCardImage.src = "images/hand02.png";
+            callingCardImage.src = "source/images/agility.png";
             title.textContent = "AGILITY";
             infoCard.innerHTML = "<p>Once a baseline of balance is achieved, agility training can help improve quickness, speed, and nimbleness in movements.</p>";
             break;
         case 'DEXTERITY':
-            callingCardImage.src = "images/hand03.png";
+            callingCardImage.src = "source/images/dexterity.png";
             title.textContent = "DEXTERITY";
             infoCard.innerHTML = "<p>Finally, dexterity can be honed to enhance fine motor skills and precision in tasks requiring intricate hand-eye coordination.</p>";
             break;
@@ -269,6 +247,7 @@ function showProgram(programName) {
 </script>
 </body>
 </html>
+
 
     ''')
     window.expose(run_balance, run_agility, run_dexterity)

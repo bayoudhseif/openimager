@@ -164,8 +164,9 @@ body {
 </style>
 </head>
 <body>
-    <body onload="showProgram('BALANCE')">
 
+    <body onload="showProgram('BALANCE')">  <!-- Set the initial program to 'BALANCE' -->
+        
     <div class="container">
         <div class="level-container">
             <button aria-label="BALANCE" onclick="showProgram('BALANCE')">
@@ -184,14 +185,18 @@ body {
         
         <div class="program-description">
             <div class="a">
-                <div class="title" id="title"></div> <!-- Switched the position of title and index -->
-                <div class="index" id="index">START</div> <!-- Switched the position of title and index --></div>
-                <button onclick="pywebview.api.run_balance()">Run balance</button>
-                <button onclick="pywebview.api.run_agility()">Run agility</button>
-                <button onclick="pywebview.api.run_dexterity()">Run dexterity</button>
+                <div class="title" id="title"></div>
+                <button class="index" onclick="pywebview.api.run_balance()">START</button>
+            </div>
             <div class="info-card"></div>
         </div>
     </div>
+    <div>
+        <button onclick="pywebview.api.run_balance()">Run balance</button>
+        <button onclick="pywebview.api.run_agility()">Run agility</button>
+        <button onclick="pywebview.api.run_dexterity()">Run dexterity</button>
+    </div>
+    
 
 <script>
 function showProgram(programName) {
