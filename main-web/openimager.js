@@ -1,7 +1,16 @@
+// Variable declarations
 let selectedProgram = 'BALANCE';
+let buttons = document.querySelectorAll('.level-container button');
 
+// Assuming the balance button has an id of 'balance'
+document.addEventListener('DOMContentLoaded', (event) => {
+    const balanceButton = document.querySelector('#balance');
+    if (balanceButton) {
+        balanceButton.classList.add('pulsate');
+    }
+});
 
-
+// Function declarations
 function runBalance() {
     fetch('/run_balance')
         .then(response => response.text())
@@ -64,9 +73,7 @@ function runProgram() {
     }
 }
 
-
-let buttons = document.querySelectorAll('.level-container button');
-
+// Event listener setup
 buttons.forEach(button => {
     button.addEventListener('click', function() {
         // Remove the 'pulsate' class from all buttons
