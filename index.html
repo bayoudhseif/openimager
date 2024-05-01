@@ -17,6 +17,65 @@
 
 
 
+
+
+
+
+
+
+
+
+
+/* Add hover effect for buttons */
+.level-container button:hover {
+    transform: scale(1.1); /* Scale up on hover */
+    transition: transform 0.3s ease; /* Smooth transition */
+}
+
+/* Add animation for button click */
+.level-container button:active {
+    transform: scale(0.9); /* Shrink when clicked */
+}
+
+/* Add pulsating animation */
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.level-container button:focus {
+    animation: pulse 1s infinite; /* Apply pulsating animation */
+    outline: none; /* Remove default focus outline */
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 body {
     background: #1e1e1e url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAG0lEQVQYV2P8//+/FCMj4zMGJMCIzIGxKRQEAJgPBAbJqUVTAAAAAElFTkSuQmCC) repeat;
 
@@ -162,11 +221,6 @@ body {
 .info-card {
     animation: entrance 1s forwards;
 }
-
-
-
-
-
 </style>
 </head>
 <body>
