@@ -195,13 +195,34 @@ body {
         </div>
     </div>
     <div>
-        <button onclick="pywebview.api.run_balance()">Run balance</button>
-        <button onclick="pywebview.api.run_agility()">Run agility</button>
-        <button onclick="pywebview.api.run_dexterity()">Run dexterity</button>
+        <button class="index" onclick="runBalance()">START</button>
+        <button class="index" onclick="runAgility()">START</button>
+        <button class="index" onclick="runDexterity()">START</button>
+
     </div>
     
 
 <script>
+
+function runBalance() {
+    fetch('/run_balance')
+        .then(response => response.text())
+        .then(data => console.log(data));
+}
+
+function runAgility() {
+    fetch('/run_agility')
+        .then(response => response.text())
+        .then(data => console.log(data));
+}
+
+function runDexterity() {
+    fetch('/run_dexterity')
+        .then(response => response.text())
+        .then(data => console.log(data));
+}
+
+
 function showProgram(programName) {
     var callingCardImage = document.getElementById('calling-card-image');
     var title = document.getElementById('title');
