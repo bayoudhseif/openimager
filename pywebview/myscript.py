@@ -1,20 +1,29 @@
 import webview
 import subprocess
 
-def run_scripty():
-    # Launch scripty.py as a separate process
-    subprocess.Popen(["python", "scripty.py"], creationflags=subprocess.CREATE_NEW_CONSOLE)
-    return "scripty.py is running in a separate window."
+def run_balance():
+    subprocess.Popen(["python", "balance.py"], creationflags=subprocess.CREATE_NEW_CONSOLE)
+    return "balance.py is running in a separate window."
+
+def run_agility():
+    subprocess.Popen(["python", "agility.py"], creationflags=subprocess.CREATE_NEW_CONSOLE)
+    return "agility.py is running in a separate window."
+
+def run_dexterity():
+    subprocess.Popen(["python", "dexterity.py"], creationflags=subprocess.CREATE_NEW_CONSOLE)
+    return "dexterity.py is running in a separate window."
 
 def create_window():
     window = webview.create_window('Open Imager', fullscreen=True, html='''
         <html>
             <body>
-                <button onclick="pywebview.api.run_scripty()">Run Scripty.py</button>
+                <button onclick="pywebview.api.run_balance()">Run balance</button>
+                <button onclick="pywebview.api.run_agility()">Run agility</button>
+                <button onclick="pywebview.api.run_dexterity()">Run dexterity</button>
             </body>
         </html>
     ''')
-    window.expose(run_scripty)
+    window.expose(run_balance, run_agility, run_dexterity)
     webview.start()
 
 if __name__ == '__main__':
