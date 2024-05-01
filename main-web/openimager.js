@@ -1,3 +1,4 @@
+let selectedProgram = 'BALANCE';
 
 function runBalance() {
     fetch('/run_balance')
@@ -17,8 +18,8 @@ function runDexterity() {
         .then(data => console.log(data));
 }
 
-
 function showProgram(programName) {
+    selectedProgram = programName;
     var callingCardImage = document.getElementById('calling-card-image');
     var title = document.getElementById('title');
     var infoCard = document.querySelector('.info-card');
@@ -44,5 +45,19 @@ function showProgram(programName) {
             callingCardImage.src = "";
             title.textContent = "";
             infoCard.innerHTML = "";
+    }
+}
+
+function runProgram() {
+    switch (selectedProgram) {
+        case 'BALANCE':
+            runBalance();
+            break;
+        case 'AGILITY':
+            runAgility();
+            break;
+        case 'DEXTERITY':
+            runDexterity();
+            break;
     }
 }

@@ -1,29 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Open Imager</title>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" type="text/css" href="openimager.css">
+
+    <title>Open Imager</title>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="openimager.css">
+
 </head>
+
 <body>
 
     <body onload="showProgram('BALANCE')">  <!-- Set the initial program to 'BALANCE' -->
         
     <div class="container">
+
         <div class="container">
+            
             <div class="level-container">
+
                 <button aria-label="BALANCE" onclick="showProgram('BALANCE')">
                     <img src="source/images/balance.png" alt="balance">
                 </button>
+                
                 <button aria-label="AGILITY" onclick="showProgram('AGILITY')">
                     <img src="source/images/agility.png" alt="agility">
                 </button>
+
                 <button aria-label="DEXTERITY" onclick="showProgram('DEXTERITY')">
                     <img src="source/images/dexterity.png" alt="dexterity">
                 </button>
+
             </div>
+            
         </div>
         
         <div class="calling-card" id="calling-card">
@@ -33,16 +46,10 @@
         <div class="program-description">
             <div class="a">
                 <div class="title" id="title"></div>
-                <button class="index" onclick="pywebview.api.run_balance()">START</button>
+                <button class="index" onclick="runProgram()">START</button>
             </div>
             <div class="info-card"></div>
         </div>
-    </div>
-    <div>
-        <button class="index" onclick="runBalance()">START</button>
-        <button class="index" onclick="runAgility()">START</button>
-        <button class="index" onclick="runDexterity()">START</button>
-
     </div>
     
 <script src="openimager.js" defer></script>
