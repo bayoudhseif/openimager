@@ -171,13 +171,13 @@ body {
         <div class="container">
             <div class="level-container">
                 <button aria-label="BALANCE" onclick="showProgram('BALANCE')">
-                    <img src="static/images/balance.png" alt="balance">
+                    <img src="source/images/balance.png" alt="balance">
                 </button>
                 <button aria-label="AGILITY" onclick="showProgram('AGILITY')">
-                    <img src="static/images/agility.png" alt="agility">
+                    <img src="source/images/agility.png" alt="agility">
                 </button>
                 <button aria-label="DEXTERITY" onclick="showProgram('DEXTERITY')">
-                    <img src="static/images/dexterity.png" alt="dexterity">
+                    <img src="source/images/dexterity.png" alt="dexterity">
                 </button>
             </div>
         </div>
@@ -231,17 +231,17 @@ function showProgram(programName) {
     // Set image source, title, and description based on programName
     switch(programName) {
         case 'BALANCE':
-            callingCardImage.src = "static/images/balance.png";
+            callingCardImage.src = "source/images/balance.png";
             title.textContent = "BALANCE";
             infoCard.innerHTML = "<p>Establishing a solid foundation of balance is often considered fundamental before advancing to more complex movements requiring agility and dexterity.</p>";
             break;
         case 'AGILITY':
-            callingCardImage.src = "static/images/agility.png";
+            callingCardImage.src = "source/images/agility.png";
             title.textContent = "AGILITY";
             infoCard.innerHTML = "<p>Once a baseline of balance is achieved, agility training can help improve quickness, speed, and nimbleness in movements.</p>";
             break;
         case 'DEXTERITY':
-            callingCardImage.src = "static/images/dexterity.png";
+            callingCardImage.src = "source/images/dexterity.png";
             title.textContent = "DEXTERITY";
             infoCard.innerHTML = "<p>Finally, dexterity can be honed to enhance fine motor skills and precision in tasks requiring intricate hand-eye coordination.</p>";
             break;
