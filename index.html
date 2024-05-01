@@ -40,12 +40,8 @@ body {
     height: 200px;
     border: none;
     background-color: #fff; /* Changed button background color */
-    cursor: pointer;
-    transition: background-color 0.3s ease; /* Added transition for smooth hover effect */
-}
-
-.level-container button:hover {
-    background-color: #e0e0e0; /* Darker background color on hover */
+    cursor: pointer; /* Set cursor pointer */
+    
 }
 
 .level-container button img {
@@ -63,7 +59,21 @@ body {
     font-size: 1rem; /* Set font size for text inside the calling card */
     text-align: center; /* Center-align text */
     overflow: hidden; /* Hide overflowing text */
+    position: relative; /* Make the position relative for absolute positioning */
 }
+
+.calling-card img {
+    max-width: 80%; /* Ensure the image doesn't exceed the boundaries of the calling card */
+    max-height: 80%; /* Ensure the image doesn't exceed the boundaries of the calling card */
+    position: absolute; /* Position the image absolutely within the calling card */
+    top: 0; /* Position the image at the top of the calling card */
+    left: 0; /* Position the image at the left of the calling card */
+    bottom: 0; /* Position the image at the bottom of the calling card */
+    right: 0; /* Position the image at the right of the calling card */
+    margin: auto; /* Center the image horizontally and vertically */
+}
+
+
 
 .index {
     margin: 10px;
@@ -72,12 +82,18 @@ body {
     background-color: #fff; /* Changed background color */
     background-size: contain;
     background-position: center;
-    font-size: 4rem; /* Set font size for text inside the index */
+    font-size: 3rem; /* Set font size for text inside the index */
     font-weight: 600; /* Set font weight for text inside the index */
     text-align: center; /* Center-align text */
     overflow: hidden; /* Hide overflowing text */
     color: #222222;
+    
+    /* Add flexbox properties */
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
+
 
 .title {
     margin: 10px;
@@ -125,50 +141,87 @@ body {
     display: flex;
     align-items: flex-start;
 }
+
+.info-card {
+    margin: 10px;
+    padding: 20px; /* Add padding for better readability */
+    width: 750px;
+    height: 500px;
+    background-color: #fff; /* Changed background color */
+    font-size: 1.2rem; /* Increase font size for better readability */
+    text-align: justify; /* Justify-align text for a cleaner look */
+    overflow: hidden; /* Hide overflowing text */
+}
+
+
+
 </style>
 </head>
 <body>
+    <body onload="showProgram('BALANCE')">
+
     <div class="container">
         <div class="level-container">
-            <button data-image="images/hand01.png" aria-label="Program 1">
+            <button aria-label="BALANCE" onclick="showProgram('BALANCE')">
                 <img src="images/hand01.png" alt="Program 1">
             </button>
-            <button data-image="images/hand02.png" aria-label="Program 2">
+            <button aria-label="AGILITY" onclick="showProgram('AGILITY')">
                 <img src="images/hand02.png" alt="Program 2">
             </button>
-            <button data-image="images/hand03.png" aria-label="Program 3">
+            <button aria-label="DEXTERITY" onclick="showProgram('DEXTERITY')">
                 <img src="images/hand03.png" alt="Program 3">
             </button>
         </div>
-        <div class="program-container">
-            <div class="calling-card"></div>
+        <div class="calling-card" id="calling-card">
+            <img id="calling-card-image" src="" alt="Calling Card Image">
         </div>
+        
         <div class="program-description">
             <div class="a">
-            <div class="index"></div>
-            <div class="title">OPEN IMAGER</div>
+            <div class="index" id="index"></div>
+            <div class="title" id="title"></div>
             </div>
             <div class="info-card"></div>
         </div>
     </div>
-    
-    
 
-    <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const buttons = document.querySelectorAll('.level-container button');
-        const callingCard = document.querySelector('.calling-card');
-        const programTitle = document.querySelector('.title');
+<script>
+function showProgram(programName) {
+    var callingCardImage = document.getElementById('calling-card-image');
+    var index = document.getElementById('index');
+    var title = document.getElementById('title');
+    var infoCard = document.querySelector('.info-card');
 
-        buttons.forEach(button => {
-            button.addEventListener('click', function() {
-                const imageUrl = this.getAttribute('data-image');
-                callingCard.style.backgroundImage = `url(${imageUrl})`;
-                const programLabel = this.getAttribute('aria-label');
-                programTitle.textContent = programLabel;
-            });
-        });
-    });
-    </script>
+    // Set image source, title, and description based on programName
+    switch(programName) {
+        case 'BALANCE':
+            callingCardImage.src = "images/hand01.png";
+            index.textContent = "01";
+            title.textContent = "BALANCE";
+            infoCard.innerHTML = "<p>Establishing a solid foundation of balance is often considered fundamental before advancing to more complex movements requiring agility and dexterity.</p>";
+            break;
+        case 'AGILITY':
+            callingCardImage.src = "images/hand02.png";
+            index.textContent = "02";
+            title.textContent = "AGILITY";
+            infoCard.innerHTML = "<p>Once a baseline of balance is achieved, agility training can help improve quickness, speed, and nimbleness in movements.</p>";
+            break;
+        case 'DEXTERITY':
+            callingCardImage.src = "images/hand03.png";
+            index.textContent = "03";
+            title.textContent = "DEXTERITY";
+            infoCard.innerHTML = "<p>Finally, dexterity can be honed to enhance fine motor skills and precision in tasks requiring intricate hand-eye coordination.</p>";
+            break;
+        default:
+            callingCardImage.src = "";
+            index.textContent = "";
+            title.textContent = "";
+            infoCard.innerHTML = "";
+    }
+}
+
+
+</script>
+
 </body>
 </html>
