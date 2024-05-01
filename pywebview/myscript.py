@@ -1,5 +1,4 @@
 import webview
-import threading
 import subprocess
 
 def run_scripty():
@@ -11,7 +10,8 @@ def create_window():
     window = webview.create_window('My App', html='''
         <html>
             <body>
-                <div id="result"></div>
+                <button onclick="pywebview.api.run_scripty()">Run Scripty.py</button>
+            </body>
         </html>
     ''')
     window.expose(run_scripty)
