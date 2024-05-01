@@ -1,20 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Responsive Grid Layout</title>
-<link rel="stylesheet" href="index.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grid Example</title>
+    <link rel="stylesheet" href="index.css">
 </head>
 <body>
-<div class="grid-container">
-  <div class="grid-item"><button>1</button></div> <!-- Grid 1 -->
-  <div class="grid-item large">2</div> <!-- Big Grid (formerly 2, 3, 7, 8) -->
-  <div class="grid-item large3">3</div> <!-- Large Grid (formerly 4 & 5) -->
-  <div class="grid-item"><button>4</button></div> <!-- Grid 6 -->
-  <div class="grid-item"><button>5</button></div> <!-- Grid 11 -->
-  <div class="grid-item large2">6</div> <!-- Large Grid (formerly 12 & 13) -->
-  <div class="grid-item large4">7</div> <!-- Large Grid (formerly 9, 10, 14, 15) -->
+  <div class="grid-container">
+    <div class="grid-item">1</div>
+    <div class="grid-item">3</div>
+    <div class="grid-item">6</div>
+    <div class="grid-item">4</div>
+    <div class="grid-item" style="grid-column: 2 / span 1; grid-row: 1 / span 2;">2 & 5</div>
+    <div class="grid-item">7</div>
+    <div class="grid-item">8</div>
+    <div class="grid-item">9</div>
 </div>
+
+
+
 </body>
 </html>

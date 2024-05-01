@@ -1,53 +1,41 @@
-body, html {
+body {
   margin: 0;
   padding: 0;
   height: 100%;
-  display: grid;
-  place-items: center;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  background: #1e1e1e url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAG0lEQVQYV2P8//+/FCMj4zMGJMCIzIGxKRQEAJgPBAbJqUVTAAAAAElFTkSuQmCC) repeat;
 }
+
+
+
 
 .grid-container {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  grid-template-rows: repeat(3, 1fr);
-  height: 100vh;
   width: 100vw;
-  padding: 60px;
-  gap: 60px;
+  height: 100vh;
+  grid-template-columns: 1fr 1fr 2fr;  /* three columns, with the third one being double the width of the first two */
+  grid-template-rows: repeat(3, 1fr); /* three equal rows */
+  gap: 100px;
+  padding: 100px;
   box-sizing: border-box;
 }
 
-.grid-item, .grid-item button {
-  border: 2px solid #333;
-  display: grid;
-  place-items: center;
-  font-size: 24px;
-  background: transparent;
-  width: 100%;
-  height: 100%;
+
+
+
+
+.grid-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid black; /* you can change this if you want a different border color */
+  font-size: 20px;
+  font-weight: bold;
+  box-sizing: border-box;
+  background-color: white; /* Set the grid item background color to white */
 }
 
-.grid-item button {
-  all: unset;
-  cursor: pointer;
-}
-
-.large {
-  grid-column: 2 / 4; /* Spans from second to fourth column */
-  grid-row: 1 / 3; /* Spans from first to third row */
-}
-
-.large2 {
-  grid-column: 2 / 4; /* Spanning the same columns as Big Grid */
-  grid-row: 3; /* Placed under Big Grid */
-}
-
-.large3 {
-  grid-column: 4 / 6; /* Spans from fourth to fifth column */
-  grid-row: 1; /* First row only */
-}
-
-.large4 {
-  grid-column: 4 / 6; /* Spans from fourth to fifth column */
-  grid-row: 2 / 4; /* Under large 4 & 5 */
-}
