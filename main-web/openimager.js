@@ -1,5 +1,7 @@
 let selectedProgram = 'BALANCE';
 
+
+
 function runBalance() {
     fetch('/run_balance')
         .then(response => response.text())
@@ -61,3 +63,19 @@ function runProgram() {
             break;
     }
 }
+
+
+let buttons = document.querySelectorAll('.level-container button');
+
+buttons.forEach(button => {
+    button.addEventListener('click', function() {
+        // Remove the 'pulsate' class from all buttons
+        buttons.forEach(btn => {
+            btn.classList.remove('pulsate');
+        });
+
+        // Add the 'pulsate' class to the clicked button
+        this.classList.add('pulsate');
+    });
+});
+
