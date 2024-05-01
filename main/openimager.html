@@ -168,26 +168,6 @@ body {
     align-items: flex-start;
 }
 
-/* Add animation keyframes */
-@keyframes entrance {
-  to, 20%, 40%, 60%, 80% {
-    opacity: 1;
-  }
-  from, 10%, 30%, 50%, 70%, 90% {
-    opacity: 0;
-  }
-}
-
-/* Apply entrance animation to all elements */
-.container,
-.level-container,
-.level-container button,
-.calling-card,
-.index,
-.title,
-.info-card {
-    animation: entrance 1s forwards;
-}
 </style>
 </head>
 <body>
@@ -196,13 +176,13 @@ body {
     <div class="container">
         <div class="level-container">
             <button aria-label="BALANCE" onclick="showProgram('BALANCE')">
-                <img src="source/images/balance.png" alt="Program 1">
+                <img src="source/images/balance.png" alt="balance">
             </button>
             <button aria-label="AGILITY" onclick="showProgram('AGILITY')">
-                <img src="source/images/agility.png" alt="Program 2">
+                <img src="source/images/agility.png" alt="agility">
             </button>
             <button aria-label="DEXTERITY" onclick="showProgram('DEXTERITY')">
-                <img src="source/images/dexterity.png" alt="Program 3">
+                <img src="source/images/dexterity.png" alt="dexterity">
             </button>
         </div>
         <div class="calling-card" id="calling-card">
