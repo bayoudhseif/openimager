@@ -2,5 +2,5 @@
 
 Python version 3.11.7
 
-Generate requirements file using "pipreqs"
-Download requirments using "pip install -r requirements.txt"
+Generate requirements file using "pipreqs" <br>
+Download requirements using "pip install -r requirements.txt"
