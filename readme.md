@@ -3,8 +3,7 @@
 - **Engage and Interact**: Immerse yourself in a variety of interactive applications, all controlled through natural and intuitive hand gestures.
 - **Easy to Start**: Begin your journey into gesture control with ease. Simply download all necessary dependencies and run `python main.py` to dive in.
 
-Installed versions:
+Python version 3.11.7
 
-Python 3.11.7
-
-To install all correct version do:  "pip install -r .\requirements.txt"
+Generate requirements file using "pipreqs"
+Download requirments using "pip install -r requirements.txt"
