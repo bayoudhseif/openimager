@@ -7,7 +7,7 @@ def run_scripty():
     return "scripty.py is running in a separate window."
 
 def create_window():
-    window = webview.create_window('My App', html='''
+    window = webview.create_window('Open Imager', fullscreen=True, html='''
         <html>
             <body>
                 <button onclick="pywebview.api.run_scripty()">Run Scripty.py</button>
