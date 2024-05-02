@@ -152,6 +152,7 @@ body {
 button.index {
     font-size: 3em; /* Adjust size as needed */
     padding: 10px; /* Add some padding */
+    color: #58a4b0;
 }
 
 @keyframes pulse {
