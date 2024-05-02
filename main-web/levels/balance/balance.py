@@ -21,6 +21,7 @@ is_grabbing = False
 planting_zone_pos = [1000, 360]  # Position of the center of the planting zone
 planting_zone_size = [200, 200]  # Size of the planting zone (width, height)
 planting_count = 0  # Keep track of how many seeds have been planted
+total_plants_required = 10  # Total number of plants required to end the game
 
 
 class DragRect:
@@ -118,16 +119,16 @@ while True:
 
     # Check if the rectangle is inside the planting zone and if the seed has been released
     if is_inside_planting_zone(single_rect.pos_center, planting_zone_pos, planting_zone_size) and not single_rect.is_grabbed:
-        if planting_count < 5:  # Check if fewer than 6 seeds have been planted
+        if planting_count < total_plants_required:  # Check if fewer than total plants required
             # Generate a new planting zone position, avoiding the current one
             planting_zone_pos = generate_new_planting_zone(planting_zone_pos, (1280, 720), planting_zone_size)
             planting_count += 1  # Increment the count of planted seeds
-        elif planting_count == 5:  # If this was the 6th successful planting
+        elif planting_count == total_plants_required:  # If total required plants achieved
             cv2.putText(img_new, "All seeds planted!", (50, 50), font, font_scale, font_color, line_type)
-            break  # Optionally end the loop/game or reset for a new game
+            break  # End the loop/game
 
     # Display planting count
-    cv2.putText(img_new, f"Planted: {planting_count}/5", (50, 50), font, font_scale, font_color, line_type)
+    cv2.putText(img_new, f"Planted: {planting_count}/{total_plants_required}", (50, 50), font, font_scale, font_color, line_type)
 
     # Display instructions
     for i, text in enumerate(instructions):
