@@ -96,13 +96,18 @@ while True:
     cx, cy = single_rect.pos_center
     w, h = single_rect.size
     rectangle_color = color_grabbing if single_rect.is_grabbed else color_rectangle
-    cv2.rectangle(img_new, (cx - w // 2, cy - h // 2), (cx + w // 2, cy + h // 2), rectangle_color, cv2.FILLED)
+    # Draw rectangle with gradient effect and rounded corners
+    cv2.rectangle(img_new, (cx - w // 2, cy - h // 2), (cx + w // 2, cy + h // 2),
+                  rectangle_color, cv2.FILLED, cv2.LINE_AA)
+    cv2.rectangle(img_new, (cx - w // 2, cy - h // 2), (cx + w // 2, cy + h // 2),
+                  (255, 255, 255), 2, cv2.LINE_AA)
 
     # Draw the planting zone
     pz_x, pz_y = planting_zone_pos
     pz_w, pz_h = planting_zone_size
+    # Draw rectangle with gradient effect and rounded corners for planting zone
     cv2.rectangle(img_new, (pz_x - pz_w // 2, pz_y - pz_h // 2), (pz_x + pz_w // 2, pz_y + pz_h // 2),
-                  color_planting_zone, 2)
+                  color_planting_zone, 2, cv2.LINE_AA)
 
     # Check if the rectangle is inside the planting zone and if the seed has been released
     if is_inside_planting_zone(single_rect.pos_center, planting_zone_pos, planting_zone_size) and not single_rect.is_grabbed:
