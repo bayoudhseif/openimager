@@ -37,6 +37,8 @@ class DragRect:
             if is_grabbing:
                 self.pos_center = cursor
                 self.is_grabbed = True
+            else:
+                self.is_grabbed = False
         else:
             if self.is_grabbed and is_grabbing:
                 self.pos_center = cursor
