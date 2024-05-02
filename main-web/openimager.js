@@ -60,6 +60,9 @@ function showProgram(programName) {
 }
 
 function runProgram() {
+    // Redirect to loadingscreen.html
+    window.location.href = "loadingscreen.html";
+
     switch (selectedProgram) {
         case 'BALANCE':
             runBalance();
