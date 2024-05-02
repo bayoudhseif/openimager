@@ -86,6 +86,3 @@ while game_running:
 
 cap.release()
 cv2.destroyAllWindows()
-
-# After the level is completed or closed
-subprocess.Popen(["python", "main.py"], creationflags=subprocess.CREATE_NEW_CONSOLE)

@@ -141,8 +141,6 @@ def main():
     cv2.destroyAllWindows()
     pygame.mixer.quit()
 
-    # After the level is completed or closed
-    subprocess.Popen(["python", "main.py"], creationflags=subprocess.CREATE_NEW_CONSOLE)
 
 if __name__ == "__main__":
     main()
