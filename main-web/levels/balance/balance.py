@@ -69,9 +69,14 @@ cv2.namedWindow("Image", cv2.WINDOW_NORMAL)
 cv2.setWindowProperty("Image", cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
 
 font = cv2.FONT_HERSHEY_SIMPLEX
-font_scale = 1
+font_scale = 0.8
 font_color = (255, 255, 255)
 line_type = 2
+
+instructions = [
+    "Keep your hand wide open and touch all fingers together to grab the box.",
+    "While still holding, move the block to the correct plot."
+]
 
 while True:
     success, img = cap.read()
@@ -123,6 +128,10 @@ while True:
 
     # Display planting count
     cv2.putText(img_new, f"Planted: {planting_count}/5", (50, 50), font, font_scale, font_color, line_type)
+
+    # Display instructions
+    for i, text in enumerate(instructions):
+        cv2.putText(img_new, text, (50, 80 + i * 30), font, font_scale, font_color, line_type)
 
     out = cv2.addWeighted(img, 0.5, img_new, 0.5, 0)
 
