@@ -66,6 +66,11 @@ single_rect = DragRect([640, 360])
 cv2.namedWindow("Image", cv2.WINDOW_NORMAL)
 cv2.setWindowProperty("Image", cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
 
+font = cv2.FONT_HERSHEY_SIMPLEX
+font_scale = 1
+font_color = (255, 255, 255)
+line_type = 2
+
 while True:
     success, img = cap.read()
     if not success:
@@ -106,8 +111,11 @@ while True:
             planting_zone_pos = generate_new_planting_zone(planting_zone_pos, (1280, 720), planting_zone_size)
             planting_count += 1  # Increment the count of planted seeds
         elif planting_count == 5:  # If this was the 6th successful planting
-            print("All seeds planted!")  # Indicate game completion (or replace with visual/auditory feedback)
+            cv2.putText(img_new, "All seeds planted!", (50, 50), font, font_scale, font_color, line_type)
             break  # Optionally end the loop/game or reset for a new game
+
+    # Display planting count
+    cv2.putText(img_new, f"Planted: {planting_count}/5", (50, 50), font, font_scale, font_color, line_type)
 
     out = cv2.addWeighted(img, 0.5, img_new, 0.5, 0)
 
