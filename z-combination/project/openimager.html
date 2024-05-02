@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <title>Open Imager</title>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="openimager.css">
+
+</head>
+
+<body>
+
+    <body onload="showProgram('BALANCE')">  <!-- Set the initial program to 'BALANCE' -->
+        
+        <div class="wrapper"> <!-- Add wrapper div -->
+            <div class="container">
+                <div class="container">
+                    <div class="level-container">
+                        <button id="balance" aria-label="BALANCE" onclick="showProgram('BALANCE')">
+                            <img src="source/images/balance.png" alt="balance">
+                        </button>
+                        <button aria-label="AGILITY" onclick="showProgram('AGILITY')">
+                            <img src="source/images/agility.png" alt="agility">
+                        </button>
+                        <button aria-label="DEXTERITY" onclick="showProgram('DEXTERITY')">
+                            <img src="source/images/dexterity.png" alt="dexterity">
+                        </button>
+                    </div>
+                </div>
+                <div class="calling-card" id="calling-card">
+                    <img id="calling-card-image" src="" alt="Calling Card Image">
+                </div>
+                <div class="program-description">
+                    <div class="a">
+                        <div class="title" id="title"></div>
+                        <button class="index" onclick="runProgram()">▶</button>                    </div>
+                    <div class="info-card"></div>
+                </div>
+            </div>
+        </div> <!-- Close wrapper div -->
+    
+<script src="openimager.js" defer></script>
+</body>
+</html>
