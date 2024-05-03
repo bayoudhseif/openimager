@@ -108,6 +108,7 @@ def main():
 
     # Start playing the piano sequence
     play_piano_sequence_thread = threading.Thread(target=play_piano_sequence, args=(gesture_made,))
+    play_piano_sequence_thread.daemon = True  # Set the thread as a daemon thread
     play_piano_sequence_thread.start()
 
     while True:
