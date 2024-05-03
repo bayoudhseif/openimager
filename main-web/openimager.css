@@ -8,7 +8,7 @@
 body::before {
     content: "";
     background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAG0lEQVQYV2P8//+/FCMj4zMGJMCIzIGxKRQEAJgPBAbJqUVTAAAAAElFTkSuQmCC) repeat;
-    opacity: 0.5;
+    opacity: 0.75;
     top: 0;
     left: 0;
     bottom: 0;
