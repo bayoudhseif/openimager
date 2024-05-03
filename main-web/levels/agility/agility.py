@@ -83,8 +83,8 @@ while game_running:
             cv2.circle(img, tuple(segment), 10, (0, 255, 0), cv2.FILLED)  # Draw the snake
         
         # Display score
-        cv2.putText(img, f"Score: {game_state['score']}", (10, 30), cv2.FONT_HERSHEY_PLAIN, 2, (255, 255, 255), 2)
-        
+        cv2.putText(img, f"Score: {game_state['score']}/30", (50, 50), font, font_scale, font_color, line_type)
+              
         # Display instructions
         for i, text in enumerate(instructions):
             cv2.putText(img, text, (50, 80 + i * 30), font, font_scale, font_color, line_type)
