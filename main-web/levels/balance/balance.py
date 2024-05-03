@@ -129,6 +129,12 @@ while True:
             # Generate a new planting zone position, avoiding the current one
             planting_zone_pos = generate_new_planting_zone(planting_zone_pos, (1280, 720), planting_zone_size)
             planting_count += 1  # Increment the count of planted seeds
+        
+            # Generate a new position for the draggable rectangle
+            new_rect_pos = generate_new_planting_zone(planting_zone_pos, (1280, 720), planting_zone_size)
+            while is_inside_planting_zone(new_rect_pos, planting_zone_pos, planting_zone_size):
+                new_rect_pos = generate_new_planting_zone(planting_zone_pos, (1280, 720), planting_zone_size)
+            single_rect.pos_center = new_rect_pos
         elif planting_count == total_plants_required:  # If total required plants achieved
             cv2.putText(img_new, "All seeds planted!", (50, 50), font, font_scale, font_color, line_type)
             break  # End the loop/game
