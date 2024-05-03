@@ -112,7 +112,7 @@ def main():
         lmList = detector.findPosition(img, draw=False)
         # Flip the image to reverse
         img = cv2.flip(img, 1)
-        
+    
         if lmList:
             fingers_count = detector.countFingers(img, lmList)
             if fingers_count == current_number:
@@ -131,17 +131,20 @@ def main():
             # Pause the piano sequence
             pygame.mixer.pause()
 
-        # Add instructions
+        # Add instructions and the prompt to the same image
         instructions = "Show the number of fingers as per the prompt on the screen."
-        cv2.putText(img, instructions, (10, 100), cv2.FONT_HERSHEY_PLAIN, 2, (255, 255, 255), 2)
-
-        # Display the prompt
         display_text = f"Show {current_number} fingers"
-        cv2.putText(img, display_text, (10, 70), cv2.FONT_HERSHEY_PLAIN, 2, (255, 255, 255), 2)
+        text_img = img.copy()
+        cv2.putText(text_img, instructions, (50, 50), cv2.FONT_HERSHEY_PLAIN, 2, (255, 255, 255), 2)
+        cv2.putText(text_img, display_text, (50, 80), cv2.FONT_HERSHEY_PLAIN, 2, (255, 255, 255), 2)
+
+        # Blend the original image with the text image
+        img = cv2.addWeighted(img, 0.6, text_img, 0.4, 0)
 
         cv2.imshow("Image", img)
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
+
 
     cap.release()
     cv2.destroyAllWindows()
