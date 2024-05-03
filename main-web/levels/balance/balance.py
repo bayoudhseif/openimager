@@ -2,6 +2,11 @@ import cv2
 import numpy as np
 import random
 from cvzone.HandTrackingModule import HandDetector
+import os
+
+# Change the working directory to the directory where the script is located
+script_dir = os.path.dirname(os.path.realpath(__file__))
+os.chdir(script_dir)
 
 # Initialize camera
 cap = cv2.VideoCapture(0)
