@@ -98,8 +98,6 @@ def main():
     display_text = f"Show {current_number} fingers"
     last_gesture_time = time.time()  # Initialize the time of the last gesture
     gesture_made = threading.Event()  # Initialize a threading Event object
-    total_music_time = 0  # Initialize total music time
-    music_start_time = time.time()  # Initialize music start time
 
     # Set up fullscreen
     cv2.namedWindow("Image", cv2.WND_PROP_FULLSCREEN)
@@ -138,15 +136,6 @@ def main():
             # Pause the piano sequence
             pygame.mixer.pause()
 
-        # Update total music time
-        if pygame.mixer.get_busy():  # If music is playing
-            total_music_time = time.time() - music_start_time
-
-        # Check if the music has been playing for 60 seconds
-        if total_music_time >= 60:
-            print("You won the game!")
-            break
-
         # Add instructions and the prompt to the same black image
         instructions = "Show the number of fingers as per the prompt on the screen."
         display_text = f"Show {current_number} fingers"
@@ -164,10 +153,6 @@ def main():
     cap.release()
     cv2.destroyAllWindows()
     pygame.mixer.quit()
-    sys.exit()  # Exit the script
-
-if __name__ == "__main__":
-    main()
 
 
 if __name__ == "__main__":
