@@ -5,14 +5,27 @@
     box-sizing: border-box;
 }
 
+body::after {
+    content: "";
+    background: url('source/images/scifi2.png') repeat;
+    opacity: 0.25;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    z-index: -1;   
+}
+
 body {
-    background: #020b1a url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAG0lEQVQYV2P8//+/FCMj4zMGJMCIzIGxKRQEAJgPBAbJqUVTAAAAAElFTkSuQmCC) repeat;
+    background: #020b1a;
     color: #58a4b0;
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
     font-family: 'Orbitron', sans-serif;
+    position: relative;
 }
 
 .container, .level-container, .program-container {
