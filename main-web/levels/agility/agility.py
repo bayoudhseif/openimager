@@ -2,22 +2,33 @@ import cv2
 from cvzone.HandTrackingModule import HandDetector
 import numpy as np
 import random
-import subprocess
 
-# Initialize the camera
+# Initialize camera
 cap = cv2.VideoCapture(0)
-cap.set(3, 1280)  # Width
-cap.set(4, 720)   # Height
+cap.set(3, 1280)
+cap.set(4, 720)
 
-# Initialize the hand detector
+# Initialize hand detector
 detector = HandDetector(detectionCon=0.8)
 
 # Before your while loop
 cv2.namedWindow("Snake Game", cv2.WINDOW_NORMAL)
 cv2.setWindowProperty("Snake Game", cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
 
+# Font settings for instructions
+font = cv2.FONT_HERSHEY_SIMPLEX
+font_scale = 0.8
+font_color = (255, 255, 255)
+line_type = 2
+
+# Instructions to display
+instructions = [
+    "Use your index finger to control the snake's direction.",
+    "Eat the red dots to grow longer and increase your score.",
+]
+
+# Function to initialize game state
 def initialize_game():
-    # Resets or initializes the game state for a new game
     return {
         "treat_pos": [random.randint(100, 1180), random.randint(100, 620)],
         "score": 0,
@@ -25,19 +36,19 @@ def initialize_game():
         "game_over": False,
     }
 
+# Function to add a new treat
 def add_treat():
-    # Generates a new position for the treat
     return [random.randint(100, 1180), random.randint(100, 620)]
 
+# Function to check collision with treat
 def check_collision_with_treat(head, treat, tolerance=20):
-    # Checks if the snake's head has collided with a treat
     dx = head[0] - treat[0]
     dy = head[1] - treat[1]
     distance = np.sqrt(dx**2 + dy**2)
     return distance < tolerance
 
+# Function to check self collision
 def check_self_collision(snake_body):
-    # Checks if the snake has collided with itself
     head = snake_body[0]
     return head in snake_body[1:]
 
@@ -73,6 +84,11 @@ while game_running:
         
         # Display score
         cv2.putText(img, f"Score: {game_state['score']}", (10, 30), cv2.FONT_HERSHEY_PLAIN, 2, (255, 255, 255), 2)
+        
+        # Display instructions
+        for i, text in enumerate(instructions):
+            cv2.putText(img, text, (50, 80 + i * 30), font, font_scale, font_color, line_type)
+
         cv2.imshow("Snake Game", img)
 
         if game_state["score"] >= 30 or cv2.waitKey(1) & 0xFF == ord('q'):
