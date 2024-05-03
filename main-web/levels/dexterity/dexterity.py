@@ -147,7 +147,7 @@ def main():
         img = cv2.addWeighted(img, 0.6, text_img, 0.4, 0)
 
         cv2.imshow("Image", img)
-        if cv2.waitKey(1) & 0xFF == ord('q'):
+        if cv2.waitKey(1) & 0xFF == ord('q') or gesture_count == 5:  # Add a condition to break the loop after 5 correct gestures
             break
 
     cap.release()
