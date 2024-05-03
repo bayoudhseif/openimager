@@ -82,14 +82,20 @@ while game_running:
         for segment in game_state["snake_body"]:
             cv2.circle(img, tuple(segment), 10, (0, 255, 0), cv2.FILLED)  # Draw the snake
         
+        # Before displaying the image, blend text with video
+        text_image = np.zeros_like(img, dtype=np.uint8)  # Create a blank image for text
+
         # Display score
-        cv2.putText(img, f"Score: {game_state['score']}/30", (50, 50), font, font_scale, font_color, line_type)
-              
+        cv2.putText(text_image, f"Score: {game_state['score']}/30", (50, 50), font, font_scale, font_color, line_type)
+
         # Display instructions
         for i, text in enumerate(instructions):
-            cv2.putText(img, text, (50, 80 + i * 30), font, font_scale, font_color, line_type)
+            cv2.putText(text_image, text, (50, 80 + i * 30), font, font_scale, font_color, line_type)
 
-        cv2.imshow("Snake Game", img)
+        # Blend text image with video frame
+        blended_img = cv2.addWeighted(img, 0.5, text_image, 0.5, 0)
+
+        cv2.imshow("Snake Game", blended_img)
 
         if game_state["score"] >= 30 or cv2.waitKey(1) & 0xFF == ord('q'):
             game_running = False
