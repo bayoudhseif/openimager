@@ -1,5 +1,5 @@
 from flask import Flask, render_template
-import subprocess
+import os
 
 app = Flask(__name__)
 app = Flask(__name__, template_folder='', static_folder='')
@@ -10,17 +10,17 @@ def index():
 
 @app.route('/run_balance')
 def run_balance():
-    subprocess.Popen(["python", "levels/balance/balance.py"], creationflags=subprocess.CREATE_NEW_CONSOLE)
+    os.system("open -a Terminal.app python levels/balance/balance.py")
     return "balance.py is running in a separate window."
 
 @app.route('/run_agility')
 def run_agility():
-    subprocess.Popen(["python", "levels/agility/agility.py"], creationflags=subprocess.CREATE_NEW_CONSOLE)
+    os.system("open -a Terminal.app python levels/agility/agility.py")
     return "agility.py is running in a separate window."
 
 @app.route('/run_dexterity')
 def run_dexterity():
-    subprocess.Popen(["python", "levels/dexterity/dexterity.py"], creationflags=subprocess.CREATE_NEW_CONSOLE)
+    os.system("open -a Terminal.app python levels/dexterity/dexterity.py")
     return "dexterity.py is running in a separate window."
 
 if __name__ == '__main__':
