@@ -5,6 +5,18 @@
     box-sizing: border-box;
 }
 
+body::before {
+    content: "";
+    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAG0lEQVQYV2P8//+/FCMj4zMGJMCIzIGxKRQEAJgPBAbJqUVTAAAAAElFTkSuQmCC) repeat;
+    opacity: 0.5;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    z-index: -1;   
+}
+
 body::after {
     content: "";
     background: url('source/images/scifi.png') repeat;
@@ -14,7 +26,7 @@ body::after {
     bottom: 0;
     right: 0;
     position: absolute;
-    z-index: -1;   
+    z-index: -2;   
 }
 
 body {
