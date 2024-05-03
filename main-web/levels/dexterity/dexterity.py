@@ -126,12 +126,18 @@ def main():
                 # Unpause the piano sequence if paused
                 pygame.mixer.unpause()
 
-            cv2.putText(img, display_text, (10, 70), cv2.FONT_HERSHEY_PLAIN, 3, (255, 0, 255), 3)
-
         # Check if the user hasn't made a gesture in the last 5 seconds
         if time.time() - last_gesture_time > 0.8:
             # Pause the piano sequence
             pygame.mixer.pause()
+
+        # Add instructions
+        instructions = "Show the number of fingers as per the prompt on the screen."
+        cv2.putText(img, instructions, (10, 100), cv2.FONT_HERSHEY_PLAIN, 2, (255, 255, 255), 2)
+
+        # Display the prompt
+        display_text = f"Show {current_number} fingers"
+        cv2.putText(img, display_text, (10, 70), cv2.FONT_HERSHEY_PLAIN, 2, (255, 255, 255), 2)
 
         cv2.imshow("Image", img)
         if cv2.waitKey(1) & 0xFF == ord('q'):
