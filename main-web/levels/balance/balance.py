@@ -62,7 +62,7 @@ def is_inside_planting_zone(rect_pos, zone_pos, zone_size):
 def generate_new_planting_zone(exclude_pos, img_size, zone_size):
     img_width, img_height = img_size
     zone_width, zone_height = zone_size
-    margin = 50  # To ensure the zone does not spawn too close to the edges
+    margin = 100  # To ensure the zone does not spawn too close to the edges
     x = random.randint(margin + zone_width // 2, img_width - margin - zone_width // 2)
     y = random.randint(margin + zone_height // 2, img_height - margin - zone_height // 2)
     return [x, y]
