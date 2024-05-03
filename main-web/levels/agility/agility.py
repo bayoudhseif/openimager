@@ -78,9 +78,14 @@ while game_running:
                 game_state["game_over"] = True  # End game condition
 
         # Drawing
-        cv2.circle(img, tuple(game_state["treat_pos"]), 10, (0, 0, 255), cv2.FILLED)  # Draw the treat
+        # Draw the treat with white outline
+        cv2.circle(img, tuple(game_state["treat_pos"]), 12, (255, 255, 255), cv2.FILLED)  # White outline
+        cv2.circle(img, tuple(game_state["treat_pos"]), 10, (220, 204, 138), cv2.FILLED)  # Lighter treat color
+
+        # Draw the snake with white outline
         for segment in game_state["snake_body"]:
-            cv2.circle(img, tuple(segment), 10, (0, 255, 0), cv2.FILLED)  # Draw the snake
+            cv2.rectangle(img, (segment[0]-9, segment[1]-9), (segment[0]+9, segment[1]+9), (255, 255, 255), cv2.FILLED)  # White outline
+            cv2.rectangle(img, (segment[0]-7, segment[1]-7), (segment[0]+7, segment[1]+7), (51, 27, 10), cv2.FILLED)  # Lighter snake color
         
         # Before displaying the image, blend text with video
         text_image = np.zeros_like(img, dtype=np.uint8)  # Create a blank image for text
