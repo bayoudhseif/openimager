@@ -1,13 +1,12 @@
-from flask import Flask, rendertemplate
+from flask import Flask, render_template
 import subprocess
 import os
 
-
-app = Flask(name, templatefolder='', staticfolder='')
+app = Flask(__name__, template_folder='', static_folder='')
 
 @app.route('/')
 def index():
-    return rendertemplate('openimager.html')
+    return render_template('openimager.html')
 
 @app.route('/run_balance')
 def run_balance():
@@ -36,5 +35,5 @@ def run_dexterity():
         return f"Failed to run dexterity.py: {result.stderr}"
     return "dexterity.py is running in a separate window."
 
-if __name == '__main':
+if __name__ == '__main__':
     app.run(debug=True)
