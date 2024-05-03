@@ -4,6 +4,7 @@ import time
 import random
 import pygame
 import threading
+import numpy as np
 import subprocess
 
 class handDetector():
@@ -131,10 +132,10 @@ def main():
             # Pause the piano sequence
             pygame.mixer.pause()
 
-        # Add instructions and the prompt to the same image
+        # Add instructions and the prompt to the same black image
         instructions = "Show the number of fingers as per the prompt on the screen."
         display_text = f"Show {current_number} fingers"
-        text_img = img.copy()
+        text_img = np.zeros_like(img, np.uint8)
         cv2.putText(text_img, instructions, (50, 50), cv2.FONT_HERSHEY_PLAIN, 2, (255, 255, 255), 2)
         cv2.putText(text_img, display_text, (50, 80), cv2.FONT_HERSHEY_PLAIN, 2, (255, 255, 255), 2)
 
