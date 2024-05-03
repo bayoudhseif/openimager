@@ -93,7 +93,7 @@ while game_running:
             cv2.putText(text_image, text, (50, 80 + i * 30), font, font_scale, font_color, line_type)
 
         # Blend text image with video frame
-        blended_img = cv2.addWeighted(img, 0.7, text_image, 0.3, 0)
+        blended_img = cv2.addWeighted(img, 0.6, text_image, 0.4, 0)
 
         cv2.imshow("Snake Game", blended_img)
 

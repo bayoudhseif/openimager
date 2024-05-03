@@ -140,7 +140,7 @@ while True:
     for i, text in enumerate(instructions):
         cv2.putText(img_new, text, (50, 80 + i * 30), font, font_scale, font_color, line_type)
 
-    out = cv2.addWeighted(img, 0.5, img_new, 0.5, 0)
+    out = cv2.addWeighted(img, 0.6, img_new, 0.4, 0)
 
     cv2.imshow("Image", out)
     if cv2.waitKey(1) & 0xFF == ord('q'):
