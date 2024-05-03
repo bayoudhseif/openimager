@@ -6,6 +6,7 @@ import pygame
 import threading
 import numpy as np
 import subprocess
+import sys
 
 class handDetector():
     def __init__(self, mode=False, maxHands=2, detectionCon=0.5, trackCon=0.5):
@@ -65,7 +66,7 @@ class handDetector():
             return fingers.count(1)
         return 0
 
-def play_piano_sequence():
+def play_piano_sequence(gesture_made):
     # Define the piano notes in sequence
     piano_notes = [
         pygame.mixer.Sound("levels/dexterity/song.mp3"),
@@ -76,13 +77,14 @@ def play_piano_sequence():
 
     # Play the piano notes in a loop
     while True:
-        for note in piano_notes:
-            if elapsed_time < note.get_length():
-                note.play()
-                time.sleep(note.get_length() - elapsed_time)  # Wait for the remaining duration
-                elapsed_time = 0  # Reset elapsed time for the next note
-            else:
-                elapsed_time -= note.get_length()  # Update elapsed time for the next note
+        if gesture_made.is_set():  # Check if a gesture has been made
+            for note in piano_notes:
+                if elapsed_time < note.get_length():
+                    note.play()
+                    time.sleep(note.get_length() - elapsed_time)  # Wait for the remaining duration
+                    elapsed_time = 0  # Reset elapsed time for the next note
+                else:
+                    elapsed_time -= note.get_length()  # Update elapsed time for the next note
 
 def main():
     cap = cv2.VideoCapture(0)
@@ -95,6 +97,9 @@ def main():
     current_number = random.randint(1, 5)
     display_text = f"Show {current_number} fingers"
     last_gesture_time = time.time()  # Initialize the time of the last gesture
+    gesture_made = threading.Event()  # Initialize a threading Event object
+    total_music_time = 0  # Initialize total music time
+    music_start_time = time.time()  # Initialize music start time
 
     # Set up fullscreen
     cv2.namedWindow("Image", cv2.WND_PROP_FULLSCREEN)
@@ -104,7 +109,7 @@ def main():
     pygame.mixer.init()
 
     # Start playing the piano sequence
-    play_piano_sequence_thread = threading.Thread(target=play_piano_sequence)
+    play_piano_sequence_thread = threading.Thread(target=play_piano_sequence, args=(gesture_made,))
     play_piano_sequence_thread.start()
 
     while True:
@@ -117,6 +122,7 @@ def main():
         if lmList:
             fingers_count = detector.countFingers(img, lmList)
             if fingers_count == current_number:
+                gesture_made.set()  # Set the gesture_made event when a gesture is detected
                 gesture_count += 1  # Increment the count for each correct gesture
                 last_gesture_time = time.time()  # Update the time of the last gesture
                 # Prepare for the next round
@@ -131,6 +137,15 @@ def main():
         if time.time() - last_gesture_time > 0.8:
             # Pause the piano sequence
             pygame.mixer.pause()
+
+        # Update total music time
+        if pygame.mixer.get_busy():  # If music is playing
+            total_music_time = time.time() - music_start_time
+
+        # Check if the music has been playing for 60 seconds
+        if total_music_time >= 60:
+            print("You won the game!")
+            break
 
         # Add instructions and the prompt to the same black image
         instructions = "Show the number of fingers as per the prompt on the screen."
@@ -149,6 +164,10 @@ def main():
     cap.release()
     cv2.destroyAllWindows()
     pygame.mixer.quit()
+    sys.exit()  # Exit the script
+
+if __name__ == "__main__":
+    main()
 
 
 if __name__ == "__main__":
