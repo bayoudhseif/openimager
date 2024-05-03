@@ -18,18 +18,19 @@
     <body onload="showProgram('BALANCE')">
 
         <audio id="hover-sound" src="source/sounds/hover.mp3" preload="auto" style="display: none;"></audio>
-        
+        <audio id="click-sound" src="source/sounds/click.mp3" preload="auto" style="display: none;"></audio>
+            
         <div class="wrapper">
             <div class="container">
                 <div class="container">
                     <div class="level-container">
-                        <button id="balance" aria-label="BALANCE" onclick="showProgram('BALANCE')" onmouseover="playSound()">
+                        <button id="balance" aria-label="BALANCE" onclick="showProgram('BALANCE'); playClickSound('balance')" onmouseover="playSound('balance')">
                             <img src="source/images/balance.png" alt="balance">
                         </button>
-                        <button aria-label="AGILITY" onclick="showProgram('AGILITY')" onmouseover="playSound()">
+                        <button id="agility" aria-label="AGILITY" onclick="showProgram('AGILITY'); playClickSound('agility')" onmouseover="playSound('agility')">
                             <img src="source/images/agility.png" alt="agility">
                         </button>
-                        <button aria-label="DEXTERITY" onclick="showProgram('DEXTERITY')" onmouseover="playSound()">
+                        <button id="dexterity" aria-label="DEXTERITY" onclick="showProgram('DEXTERITY'); playClickSound('dexterity')" onmouseover="playSound('dexterity')">
                             <img src="source/images/dexterity.png" alt="dexterity">
                         </button>
                     </div>
@@ -40,19 +41,46 @@
                 <div class="program-description">
                     <div class="a">
                         <div class="title" id="title"></div>
-                        <button class="index" onclick="runProgram()" onmouseover="playSound()">▶</button>                    </div>
+                        <button class="index" onclick="runProgram(); playClickSound()" onmouseover="playSound()">▶</button>                    
+                    </div>
                     <div class="info-card"></div>
                 </div>
             </div>
         </div>
     
-<script src="openimager.js" defer></script>
-<script>
-    function playSound() {
-    var sound = document.getElementById('hover-sound');
-    var soundClone = sound.cloneNode(true);
-    soundClone.play();
-}
+    <script src="openimager.js" defer></script>
+    <script>
+        var hoverSounds = [];
+        var lastClickTime = 0;
+
+        function playSound(buttonId) {
+            var currentTime = new Date().getTime();
+            if (currentTime - lastClickTime < 1000) {
+                return;
+            }
+            var sound = document.getElementById('hover-sound');
+            var soundClone = sound.cloneNode(true);
+            hoverSounds.push(soundClone);
+            soundClone.play();
+        }
+
+        function playClickSound(buttonId) {
+            lastClickTime = new Date().getTime();
+
+            // Stop all hover sounds
+            for (var i = 0; i < hoverSounds.length; i++) {
+                hoverSounds[i].pause();
+                hoverSounds[i].currentTime = 0;
+            }
+            // Clear the array of hover sounds
+            hoverSounds = [];
+
+            // Play the click sound
+            var sound = document.getElementById('click-sound');
+            var soundClone = sound.cloneNode(true);
+            soundClone.play();
+        }
+    </script>
 </script>
 <script src="openimager.js" defer></script>
 </body>
