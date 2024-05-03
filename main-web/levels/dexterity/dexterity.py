@@ -146,7 +146,7 @@ def main():
         text_img = np.zeros_like(img, np.uint8)
         cv2.putText(text_img, instructions_line1, (50, 50), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (255, 255, 255), 2)
         cv2.putText(text_img, instructions_line2, (50, 80), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (255, 255, 255), 2)
-        cv2.putText(text_img, display_text, (50, 110), cv2.FONT_HERSHEY_SIMPLEX, 1.2, (255, 255, 255), 2)
+        cv2.putText(text_img, display_text, (50, 125), cv2.FONT_HERSHEY_SIMPLEX, 1.2, (255, 255, 255), 2)
 
         # Blend the original image with the text image
         img = cv2.addWeighted(img, 0.6, text_img, 0.4, 0)
