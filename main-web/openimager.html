@@ -15,19 +15,21 @@
 
 <body>
 
-    <body onload="showProgram('BALANCE')">  <!-- Set the initial program to 'BALANCE' -->
+    <body onload="showProgram('BALANCE')">
+
+        <audio id="hover-sound" src="source/sounds/hover.mp3" preload="auto" style="display: none;"></audio>
         
-        <div class="wrapper"> <!-- Add wrapper div -->
+        <div class="wrapper">
             <div class="container">
                 <div class="container">
                     <div class="level-container">
-                        <button id="balance" aria-label="BALANCE" onclick="showProgram('BALANCE')">
+                        <button id="balance" aria-label="BALANCE" onclick="showProgram('BALANCE')" onmouseover="playSound()">
                             <img src="source/images/balance.png" alt="balance">
                         </button>
-                        <button aria-label="AGILITY" onclick="showProgram('AGILITY')">
+                        <button aria-label="AGILITY" onclick="showProgram('AGILITY')" onmouseover="playSound()">
                             <img src="source/images/agility.png" alt="agility">
                         </button>
-                        <button aria-label="DEXTERITY" onclick="showProgram('DEXTERITY')">
+                        <button aria-label="DEXTERITY" onclick="showProgram('DEXTERITY')" onmouseover="playSound()">
                             <img src="source/images/dexterity.png" alt="dexterity">
                         </button>
                     </div>
@@ -38,12 +40,20 @@
                 <div class="program-description">
                     <div class="a">
                         <div class="title" id="title"></div>
-                        <button class="index" onclick="runProgram()">▶</button>                    </div>
+                        <button class="index" onclick="runProgram()" onmouseover="playSound()">▶</button>                    </div>
                     <div class="info-card"></div>
                 </div>
             </div>
-        </div> <!-- Close wrapper div -->
+        </div>
     
+<script src="openimager.js" defer></script>
+<script>
+    function playSound() {
+    var sound = document.getElementById('hover-sound');
+    var soundClone = sound.cloneNode(true);
+    soundClone.play();
+}
+</script>
 <script src="openimager.js" defer></script>
 </body>
 </html>
