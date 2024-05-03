@@ -16,10 +16,11 @@ cap.set(4, 720)
 # Initialize hand detector
 detector = HandDetector(detectionCon=0.8)
 
-# Define colors
-color_rectangle = (30, 144, 255)  # Use Dodger Blue for the rectangle
-color_grabbing = (50, 205, 50)  # Green when grabbing
-color_planting_zone = (255, 0, 0)  # Red for the planting zone
+# Load images for the draggable box and the planting zone
+box_image = cv2.imread('box.png')  # Make sure 'box.png' is in your script directory
+zone_image = cv2.imread('plot.png')  # Make sure 'zone.png' is in your script directory
+if box_image is None or zone_image is None:
+    raise Exception("Images not found, please check the paths.")
 
 # Define thresholds
 grab_threshold = 30
@@ -28,16 +29,17 @@ is_grabbing = False
 
 # Define planting zone parameters
 planting_zone_pos = [1000, 360]  # Position of the center of the planting zone
-planting_zone_size = [200, 200]  # Size of the planting zone (width, height)
+planting_zone_size = [zone_image.shape[1], zone_image.shape[0]]
 planting_count = 0  # Keep track of how many seeds have been planted
 total_plants_required = 10  # Total number of plants required to end the game
 
-# Define class for draggable rectangle
+# Define class for draggable rectangle (now with images)
 class DragRect:
-    def __init__(self, pos_center, size=[200, 200]):
+    def __init__(self, pos_center, image):
         self.pos_center = pos_center
-        self.size = size
+        self.image = image
         self.is_grabbed = False
+        self.size = [image.shape[1], image.shape[0]]
 
     def update(self, cursor, is_grabbing):
         cx, cy = self.pos_center
@@ -54,6 +56,25 @@ class DragRect:
                 self.pos_center = cursor
             elif not is_grabbing:
                 self.is_grabbed = False
+
+# Initialize draggable rectangle with an image
+single_rect = DragRect([640, 360], box_image)
+
+# Create window and set to fullscreen
+cv2.namedWindow("Image", cv2.WINDOW_NORMAL)
+cv2.setWindowProperty("Image", cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
+
+# Font settings for instructions
+font = cv2.FONT_HERSHEY_SIMPLEX
+font_scale = 0.8
+font_color = (255, 255, 255)
+line_type = 2
+
+# Instructions to display
+instructions = [
+    "Keep your hand wide open and touch all fingers together to grab the box.",
+    "While still holding, move the block to the correct plot."
+]
 
 # Function to check if a point is inside a rectangle
 def is_inside_planting_zone(rect_pos, zone_pos, zone_size):
@@ -72,30 +93,12 @@ def generate_new_planting_zone(exclude_pos, img_size, zone_size):
     y = random.randint(margin + zone_height // 2, img_height - margin - zone_height // 2)
     return [x, y]
 
-# Initialize draggable rectangle
-single_rect = DragRect([640, 360])
-
-# Create window and set to fullscreen
-cv2.namedWindow("Image", cv2.WINDOW_NORMAL)
-cv2.setWindowProperty("Image", cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
-
-# Font settings for instructions
-font = cv2.FONT_HERSHEY_SIMPLEX
-font_scale = 0.8
-font_color = (255, 255, 255)
-line_type = 2
-
-# Instructions to display
-instructions = [
-    "Keep your hand wide open and touch all fingers together to grab the box.",
-    "While still holding, move the block to the correct plot."
-]
-
 # Main loop
 while True:
     success, img = cap.read()
     if not success:
-        break
+        print("Failed to capture video frame.")
+        continue  # Skip the rest of the loop and try to get another frame
 
     img = cv2.flip(img, 1)
     hands, img = detector.findHands(img, draw=False)
@@ -116,38 +119,44 @@ while True:
     img_new = np.zeros_like(img, np.uint8)
     cx, cy = single_rect.pos_center
     w, h = single_rect.size
-    rectangle_color = color_grabbing if single_rect.is_grabbed else color_rectangle
-    cv2.rectangle(img_new, (cx - w // 2, cy - h // 2), (cx + w // 2, cy + h // 2),
-                  rectangle_color, cv2.FILLED, cv2.LINE_AA)
-    cv2.rectangle(img_new, (cx - w // 2, cy - h // 2), (cx + w // 2, cy + h // 2),
-                  (255, 255, 255), 2, cv2.LINE_AA)
 
-    # Draw the planting zone
+    # Ensure the image placements do not go out of bounds
+    start_x = max(0, cx - w // 2)
+    start_y = max(0, cy - h // 2)
+    end_x = min(img.shape[1], cx + w // 2)
+    end_y = min(img.shape[0], cy + h // 2)
+
+    # Ensure we don't exceed the array bounds
+    if start_x < end_x and start_y < end_y:
+        img_new[start_y:end_y, start_x:end_x] = single_rect.image[start_y-cy+h//2:end_y-cy+h//2, start_x-cx+w//2:end_x-cx+w//2]
+
+    # Place the planting zone image
     pz_x, pz_y = planting_zone_pos
     pz_w, pz_h = planting_zone_size
-    cv2.rectangle(img_new, (pz_x - pz_w // 2, pz_y - pz_h // 2), (pz_x + pz_w // 2, pz_y + pz_h // 2),
-                  color_planting_zone, 2, cv2.LINE_AA)
+    pz_start_x = max(0, pz_x - pz_w // 2)
+    pz_start_y = max(0, pz_y - pz_h // 2)
+    pz_end_x = min(img.shape[1], pz_x + pz_w // 2)
+    pz_end_y = min(img.shape[0], pz_y + pz_h // 2)
+
+    if pz_start_x < pz_end_x and pz_start_y < pz_end_y:
+        img_new[pz_start_y:pz_end_y, pz_start_x:pz_end_x] = zone_image[pz_start_y-pz_y+pz_h//2:pz_end_y-pz_y+pz_h//2, pz_start_x-pz_x+pz_w//2:pz_end_x-pz_x+pz_w//2]
 
     # Check if the rectangle is inside the planting zone and if the seed has been released
     if is_inside_planting_zone(single_rect.pos_center, planting_zone_pos, planting_zone_size) and not single_rect.is_grabbed:
         if planting_count < total_plants_required:  # Check if fewer than total plants required
-            # Generate a new planting zone position, avoiding the current one
             planting_zone_pos = generate_new_planting_zone(planting_zone_pos, (1280, 720), planting_zone_size)
-            planting_count += 1  # Increment the count of planted seeds
-        
-            # Generate a new position for the draggable rectangle
+            planting_count += 1
+
             new_rect_pos = generate_new_planting_zone(planting_zone_pos, (1280, 720), planting_zone_size)
             while is_inside_planting_zone(new_rect_pos, planting_zone_pos, planting_zone_size):
                 new_rect_pos = generate_new_planting_zone(planting_zone_pos, (1280, 720), planting_zone_size)
             single_rect.pos_center = new_rect_pos
-        elif planting_count == total_plants_required:  # If total required plants achieved
+        elif planting_count == total_plants_required:
             cv2.putText(img_new, "All seeds planted!", (50, 50), font, font_scale, font_color, line_type)
-            break  # End the loop/game
+            break
 
-    # Display planting count
     cv2.putText(img_new, f"Planted: {planting_count}/{total_plants_required}", (50, 50), font, font_scale, font_color, line_type)
 
-    # Display instructions
     for i, text in enumerate(instructions):
         cv2.putText(img_new, text, (50, 80 + i * 30), font, font_scale, font_color, line_type)
 
