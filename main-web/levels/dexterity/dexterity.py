@@ -5,10 +5,9 @@ import random
 import pygame
 import threading
 import numpy as np
-import subprocess
 import sys
 
-class handDetector():
+class handDetector:
     def __init__(self, mode=False, maxHands=2, detectionCon=0.5, trackCon=0.5):
         self.mode = mode
         self.maxHands = maxHands
@@ -30,8 +29,7 @@ class handDetector():
         if self.results.multi_hand_landmarks:
             for handLms in self.results.multi_hand_landmarks:
                 if draw:
-                    self.mpDraw.draw_landmarks(img, handLms,
-                                               self.mpHands.HAND_CONNECTIONS)
+                    self.mpDraw.draw_landmarks(img, handLms, self.mpHands.HAND_CONNECTIONS)
         return img
 
     def findPosition(self, img, handNo=0, draw=True):
@@ -46,8 +44,8 @@ class handDetector():
                     cv2.circle(img, (cx, cy), 15, (255, 0, 255), cv2.FILLED)
         return lmList
 
-    def countFingers(self, img, lmList):
-        if len(lmList) != 0:
+    def countFingers(self, lmList):
+        if lmList:
             fingers = []
 
             # Thumb
@@ -62,85 +60,74 @@ class handDetector():
                     fingers.append(1)
                 else:
                     fingers.append(0)
-            
+
             return fingers.count(1)
         return 0
 
+
 def play_piano_sequence(gesture_made):
-    # Define the piano notes in sequence
-    piano_notes = [
-        pygame.mixer.Sound("levels/dexterity/song.mp3"),
-    ]
-    
-    # Keep track of the elapsed time
+    piano_notes = [pygame.mixer.Sound("levels/dexterity/song.mp3")]
     elapsed_time = 0
 
-    # Play the piano notes in a loop
     while True:
-        if gesture_made.is_set():  # Check if a gesture has been made
+        if gesture_made.is_set():
             for note in piano_notes:
                 if elapsed_time < note.get_length():
                     note.play()
-                    time.sleep(note.get_length() - elapsed_time)  # Wait for the remaining duration
-                    elapsed_time = 0  # Reset elapsed time for the next note
+                    time.sleep(note.get_length() - elapsed_time)
+                    elapsed_time = 0
                 else:
-                    elapsed_time -= note.get_length()  # Update elapsed time for the next note
+                    elapsed_time -= note.get_length()
+                if gesture_made.is_set():
+                    continue
+
 
 def main():
+    # Initialize pygame and create a fullscreen window
+    pygame.init()
+    screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+    pygame.display.set_caption("Image")
+
     cap = cv2.VideoCapture(0)
-    cap.set(cv2.CAP_PROP_FRAME_WIDTH, 1280)
-    cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 720)
+    cap.set(cv2.CAP_PROP_FRAME_WIDTH, 1920)
+    cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 1080)
 
     detector = handDetector()
-    gesture_count = 0  # Initialize a counter for correct gestures
+    gesture_count = 0
     previous_number = 0
     current_number = random.randint(1, 5)
-    display_text = f"Show {current_number} fingers"
-    last_gesture_time = time.time()  # Initialize the time of the last gesture
-    gesture_made = threading.Event()  # Initialize a threading Event object
+    last_gesture_time = time.time()
+    gesture_made = threading.Event()
 
-    # Set up fullscreen
-    cv2.namedWindow("Image", cv2.WND_PROP_FULLSCREEN)
-    cv2.setWindowProperty("Image", cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
-
-    # Initialize pygame mixer
     pygame.mixer.init()
-
-    # Start playing the piano sequence
     play_piano_sequence_thread = threading.Thread(target=play_piano_sequence, args=(gesture_made,))
-    play_piano_sequence_thread.daemon = True  # Set the thread as a daemon thread
+    play_piano_sequence_thread.daemon = True
     play_piano_sequence_thread.start()
 
     while True:
         success, img = cap.read()
         img = detector.findHands(img)
         lmList = detector.findPosition(img, draw=False)
-        # Flip the image to reverse
         img = cv2.flip(img, 1)
-    
+
         if lmList:
-            fingers_count = detector.countFingers(img, lmList)
+            fingers_count = detector.countFingers(lmList)
             if fingers_count == current_number:
-                gesture_made.set()  # Set the gesture_made event when a gesture is detected
-                gesture_count += 1  # Increment the count for each correct gesture
-                last_gesture_time = time.time()  # Update the time of the last gesture
-                # Prepare for the next round
+                gesture_made.set()
+                gesture_count += 1
+                last_gesture_time = time.time()
                 previous_number = current_number
                 while previous_number == current_number:
                     current_number = random.randint(1, 5)
                 display_text = f"Show {current_number} fingers"
-                # Unpause the piano sequence if paused
-                pygame.mixer.unpause()
+                pygame.mixer.unpause()  # Resume the music when a new gesture is made
+        else:
+            pygame.mixer.pause()  # Pause the music if no hands are detected
 
-        # Check if the user hasn't made a gesture in the last 5 seconds
         if time.time() - last_gesture_time > 0.8:
-            # Pause the piano sequence
             pygame.mixer.pause()
 
-        # Add instructions and the prompt to the same black image
-        instructions_line1 = "Show the number of fingers as per the prompt on the screen."
-        instructions_line2 = "Do 60 correct gestures to finish."
-
+                # Create instructions text
         instructions_line1 = "Show the number of fingers as per the prompt on the screen."
         instructions_line2 = "Do 60 correct gestures to finish."
         display_text = f"Show {current_number} fingers"
@@ -149,13 +136,30 @@ def main():
         cv2.putText(text_img, instructions_line2, (50, 80), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (255, 255, 255), 2)
         cv2.putText(text_img, display_text, (50, 125), cv2.FONT_HERSHEY_SIMPLEX, 1.2, (255, 255, 255), 2)
 
-        # Blend the original image with the text image
         img = cv2.addWeighted(img, 0.6, text_img, 0.4, 0)
 
-        cv2.imshow("Image", img)
-        if cv2.waitKey(1) & 0xFF == ord('q') or gesture_count == 60:  # Add a condition to break the loop after 60 correct gestures
+        # Convert OpenCV image to Pygame surface
+        img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+        img = np.rot90(img)
+        img = pygame.surfarray.make_surface(img)
+        img = pygame.transform.flip(img, True, False)
+
+        screen.blit(img, (0, 0))
+        pygame.display.flip()
+
+        # Handle pygame events
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT or (event.type == pygame.KEYDOWN and (event.key == pygame.K_ESCAPE or event.key == pygame.K_q)):
+                pygame.quit()
+                cap.release()
+                cv2.destroyAllWindows()
+                pygame.mixer.quit()
+                sys.exit()
+
+        if gesture_count == 60:
             break
 
+    pygame.quit()
     cap.release()
     cv2.destroyAllWindows()
     pygame.mixer.quit()
