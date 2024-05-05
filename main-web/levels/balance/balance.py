@@ -23,9 +23,16 @@ cap.set(4, screen_height)
 # Initialize hand detector
 detector = HandDetector(detectionCon=0.8)
 
+# Get the directory of the current script
+script_dir = os.path.dirname(os.path.realpath(__file__))
+
 # Load images for the draggable box and the planting zone
-box_image = cv2.imread('box.png')  # Make sure 'box.png' is in your script directory
-zone_image = cv2.imread('plot.png')  # Make sure 'zone.png' is in your script directory
+box_image_path = os.path.join(script_dir, 'box.png')
+zone_image_path = os.path.join(script_dir, 'plot.png')
+
+box_image = cv2.imread(box_image_path)  # Make sure 'box.png' is in your script directory
+zone_image = cv2.imread(zone_image_path)  # Make sure 'zone.png' is in your script directory
+
 if box_image is None or zone_image is None:
     raise Exception("Images not found, please check the paths.")
 
