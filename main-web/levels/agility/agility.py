@@ -2,18 +2,22 @@ import cv2
 from cvzone.HandTrackingModule import HandDetector
 import numpy as np
 import random
+import pygame
+import sys
 
 # Initialize camera
 cap = cv2.VideoCapture(0)
-cap.set(3, 1280)
-cap.set(4, 720)
+cap.set(3, 1920)
+cap.set(4, 1080)
 
 # Initialize hand detector
 detector = HandDetector(detectionCon=0.8)
 
-# Before your while loop
-cv2.namedWindow("Snake Game", cv2.WINDOW_NORMAL)
-cv2.setWindowProperty("Snake Game", cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
+# Initialize pygame
+pygame.init()
+display_info = pygame.display.Info()
+screen = pygame.display.set_mode((display_info.current_w, display_info.current_h), pygame.FULLSCREEN)
+pygame.display.set_caption("Snake Game")
 
 # Font settings for instructions
 font = cv2.FONT_HERSHEY_SIMPLEX
@@ -84,9 +88,9 @@ while game_running:
 
         # Draw the snake with white outline
         for segment in game_state["snake_body"]:
-            cv2.rectangle(img, (segment[0]-9, segment[1]-9), (segment[0]+9, segment[1]+9), (255, 255, 255), cv2.FILLED)  # White outline
-            cv2.rectangle(img, (segment[0]-7, segment[1]-7), (segment[0]+7, segment[1]+7), (51, 27, 10), cv2.FILLED)  # Lighter snake color
-        
+            cv2.rectangle(img, (segment[0] - 9, segment[1] - 9), (segment[0] + 9, segment[1] + 9), (255, 255, 255), cv2.FILLED)  # White outline
+            cv2.rectangle(img, (segment[0] - 7, segment[1] - 7), (segment[0] + 7, segment[1] + 7), (51, 27, 10), cv2.FILLED)  # Lighter snake color
+
         # Before displaying the image, blend text with video
         text_image = np.zeros_like(img, dtype=np.uint8)  # Create a blank image for text
 
@@ -100,16 +104,35 @@ while game_running:
         # Blend text image with video frame
         blended_img = cv2.addWeighted(img, 0.6, text_image, 0.4, 0)
 
-        cv2.imshow("Snake Game", blended_img)
+        # Convert the blended image to Pygame format
+        blended_img = cv2.cvtColor(blended_img, cv2.COLOR_BGR2RGB)
+        blended_img = np.rot90(blended_img)
+        blended_img = pygame.surfarray.make_surface(blended_img)
+        blended_img = pygame.transform.scale(blended_img, (display_info.current_w, display_info.current_h))
+        blended_img = pygame.transform.flip(blended_img, True, False)
 
-        if game_state["score"] >= 30 or cv2.waitKey(1) & 0xFF == ord('q'):
+        screen.blit(blended_img, (0, 0))
+        pygame.display.flip()
+
+        # Event handling
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT or (event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE):
+                game_running = False
+                cap.release()
+                cv2.destroyAllWindows()
+                pygame.quit()
+                sys.exit()
+
+        if game_state["score"] >= 30:
             game_running = False
             break
 
     if game_state["game_over"]:
-        # Wait for a key press before restarting
         print(f"Game Over. Final Score: {game_state['score']}")
         cv2.waitKey(1000)  # Wait a bit before potentially restarting
 
 cap.release()
 cv2.destroyAllWindows()
+pygame.quit()
+
+
