@@ -2,7 +2,7 @@ from flask import Flask, render_template
 import subprocess
 import os
 
-app = Flask(__name__, templatefolder='', staticfolder='')
+app = Flask(__name__, template_folder='', static_folder='')
 
 @app.route('/')
 def index():
