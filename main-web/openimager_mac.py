@@ -1,4 +1,4 @@
-from flask import Flask, rendertemplate
+from flask import Flask, render_template
 import subprocess
 import os
 
@@ -6,7 +6,7 @@ app = Flask(__name__, templatefolder='', staticfolder='')
 
 @app.route('/')
 def index():
-    return rendertemplate('openimager.html')
+    return render_template('openimager.html')
 
 @app.route('/run_balance')
 def run_balance():
