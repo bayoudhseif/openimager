@@ -1,34 +1,10 @@
 # Open Imager
 
-![Open Imager Thumbnail](path/to/your/thumbnail.jpg)
-
-**Open Imager** is a gesture-controlled interface designed to harness the power of advanced hand tracking technologies. Utilizing a combination of **OpenCV**, **cvzone**, and **MediaPipe**, it offers an unparalleled interactive experience.
-
-## Table of Contents
-
-- [Installation Video](#installation-video)
-- [Project Setup](#project-setup)
-- [Code Explanation](#code-explanation)
-- [Tips and Pitfalls](#tips-and-pitfalls)
-- [Maker Files](#maker-files)
-- [Requirements](#requirements)
+**Open Imager** is a gesture-controlled interface that leverages advanced hand tracking technologies for an immersive interactive experience. Using a combination of OpenCV, cvzone, and MediaPipe, Open Imager provides a sophisticated platform for users to interact with their computers in a unique way.
 
 ## Installation Video
 
-[![Watch the video](path/to/your/thumbnail.jpg)](https://www.youtube.com/your-video-link)
+[![Installation Guide](http://img.youtube.com/vi/your_video_id/0.jpg)](http://www.youtube.com/watch?v=your_video_id "Open Imager Installation Guide")
 
-## Project Setup
-
-Follow these steps to set up the project:
-
-### Prerequisites
-
-- Python 3.12
-- Visual Studio 2015, 2017, 2019, or 2022
-
-### Installation
-
-1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/yourusername/open-imager.git
+Click on the thumbnail above to watch the installation video on YouTube. This video provides a visual guide to help you set up and start using Open Imager on your system.
 
