@@ -1,14 +1,3 @@
-**Open Imager** is a gesture-controlled interface designed to harness the power of advanced hand tracking technologies. Utilizing a combination of **OpenCV**, **cvzone**, and **MediaPipe**, it offers an unparalleled interactive experience.
-
-Python version 3.11.7
-
-Generate requirements file using "pipreqs" <br>
-Download requirements using "pip install -r requirements.txt"
-
-Visual Studio 2015, 2017, 2019, and 2022
-
-New:
-
 # Open Imager
 
 ![Open Imager Thumbnail](path/to/your/thumbnail.jpg)
@@ -42,4 +31,4 @@ Follow these steps to set up the project:
 1. **Clone the repository:**
    ```bash
    git clone https://github.com/yourusername/open-imager.git
-   cd open-imager
+
