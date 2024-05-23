@@ -5,3 +5,4 @@ Python version 3.11.7
 Generate requirements file using "pipreqs" <br>
 Download requirements using "pip install -r requirements.txt"
 
+Visual Studio 2015, 2017, 2019, and 2022
