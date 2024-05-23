@@ -7,4 +7,3 @@ pyautogui==0.9.54
 pygame==2.5.2
 webview==0.1.5
 flask==3.0.3
-q
