@@ -97,7 +97,7 @@ A hand-controlled snake game using OpenCV and Pygame.
 #### Game Mechanics
 - The game continuously captures frames from the camera, detects hand landmarks, and uses the index finger position to control the snake.
 - If the snake's head (index finger tip) collides with a treat, the score increases, and a new treat position is generated.
-- The game ends if the snake collides with itself.
+- The game ends if the snake stands still for too long.
 
 </details>
 
@@ -109,7 +109,7 @@ A hand-controlled drag-and-drop planting game using OpenCV and Pygame.
 
 #### Game Mechanics
 - The game detects hand gestures to grab and move a box (seed) to a planting zone.
-- If the box is placed inside the planting zone, a new planting zone is generated, and the count of planted seeds increases.
+- If the box is placed inside the planting zone, a new planting zone is generated.
 
 </details>
 
