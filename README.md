@@ -17,19 +17,7 @@ These instructions are for Windows. While Mac is supported, documentation for it
 ## Setup & Installation
 
 <details>
-<summary>Hardware Recommendations</summary>
-
-To ensure optimal performance, it is recommended to use the following hardware specifications:
-
-- **Processor**: Quad-core CPU with 2.5 GHz or higher clock speed.
-- **RAM**: Minimum 8 GB RAM.
-- **GPU**: Optional but recommended for improved performance, with at least 2 GB VRAM.
-- **Camera**: Standard webcam capable of at least 720p resolution.
-
-</details>
-
-<details>
-<summary>Expand for Setup & Installation Instructions</summary>
+<summary>Setup & Installation</summary>
 
 ### Prerequisites
 
@@ -65,12 +53,24 @@ To ensure optimal performance, it is recommended to use the following hardware s
 
 </details>
 
+<details>
+<summary>Hardware Recommendations</summary>
+
+To ensure optimal performance, it is recommended to use the following hardware specifications:
+
+- **Processor**: Quad-core CPU with 2.5 GHz or higher clock speed.
+- **RAM**: Minimum 8 GB RAM.
+- **GPU**: Optional but recommended for improved performance, with at least 2 GB VRAM.
+- **Camera**: Standard webcam capable of at least 720p resolution.
+
+</details>
+
 ---
 
 ## Troubleshooting
 
 <details>
-<summary>Expand for Troubleshooting Tips</summary>
+<summary>Troubleshooting Tips</summary>
 
 If you're having trouble getting the training modules to work after starting the Flask server from `openimager-windows.py`, follow these steps:
 
