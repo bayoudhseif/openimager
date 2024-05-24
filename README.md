@@ -8,6 +8,8 @@
 
 This application was specifically crafted to aid individuals undergoing orthopedic rehabilitation, facilitating the relearning and training of fine motor skills and hand movements.
 
+![Interface Preview](https://github.com/bayoudhseif/openimager/blob/master/assets/interface.PNG?raw=true)
+
 These instructions are for Windows. While Mac is supported, documentation for it is not available at the moment.
 
 ---
