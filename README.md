@@ -10,10 +10,7 @@ This application was specifically crafted to aid individuals undergoing orthoped
 
 ![Interface Preview](https://github.com/bayoudhseif/openimager/blob/master/assets/interface.PNG?raw=true)
 
-<video width="600" controls>
-  <source src="https://github.com/bayoudhseif/openimager/blob/master/demo.mp4?raw=true" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
+[![Demo Video](https://img.shields.io/badge/Watch%20Demo-Video-green)](https://github.com/bayoudhseif/openimager/blob/master/demo.mp4?raw=true)
 
 These instructions are for Windows. While Mac is supported, documentation for it is not available at the moment.
 
