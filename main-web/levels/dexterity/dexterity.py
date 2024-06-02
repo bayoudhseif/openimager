@@ -66,7 +66,7 @@ class handDetector:
 
 
 def play_piano_sequence(gesture_made):
-    piano_notes = [pygame.mixer.Sound("levels/dexterity/song.mp3")]
+    piano_notes = [pygame.mixer.Sound("song.mp3")]
     elapsed_time = 0
 
     while True:
