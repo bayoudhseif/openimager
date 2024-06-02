@@ -12,7 +12,7 @@ This application was specifically crafted to aid individuals undergoing orthoped
 </div>
 
 <div style="display: flex; justify-content: center; margin-top: 20px;">
-  <a href="[https://www.youtube.com/watch?v=02N02075yaQ](https://youtu.be/ZJ_tWuLcxhg)" target="_blank">
+  <a href="https://www.youtube.com/watch?v=02N02075yaQ" target="_blank">
     <img src="https://img.shields.io/badge/Watch%20on-YouTube-red?style=for-the-badge&logo=youtube" alt="Watch on YouTube" style="width: 300px;">
   </a>
 </div>
