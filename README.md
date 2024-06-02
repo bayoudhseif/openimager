@@ -8,12 +8,22 @@
 
 This application was specifically crafted to aid individuals undergoing orthopedic rehabilitation, facilitating the relearning and training of fine motor skills and hand movements.
 
-<div style="display: flex; flex-direction: row;">
-  <img src="https://github.com/bayoudhseif/openimager/blob/master/assets/interface.PNG?raw=true" alt="Interface Preview" style="width: 70%;">
-  <a href="https://www.youtube.com/watch?v=02N02075yaQ" style="width: 100%; display: inline-block;">
-    <img src="https://img.youtube.com/vi/02N02075yaQ/0.jpg" alt="Open Imager Video" style="width: 70%;">
+<div style="display: flex; flex-direction: column;">
+  <img src="https://github.com/bayoudhseif/openimager/blob/master/assets/interface.PNG?raw=true" alt="Interface Preview" style="width: 100%;">
+</div>
+
+<div style="display: flex; justify-content: center; margin-top: 20px;">
+  <a href="https://www.youtube.com/watch?v=02N02075yaQ" target="_blank">
+    <img src="https://img.shields.io/badge/Watch%20on-YouTube-red?style=for-the-badge&logo=youtube" alt="Watch on YouTube" style="width: 300px;">
   </a>
 </div>
+
+<details>
+<summary>Flowchart</summary>
+
+<img src="https://github.com/bayoudhseif/openimager/blob/master/assets/flowchart.png?raw=true" alt="Flowchart" style="width: 100%;">
+
+</details>
 
 These instructions are for Windows. While Mac is supported, documentation for it is not available at the moment.
 
@@ -75,7 +85,7 @@ To ensure optimal performance, it is recommended to use the following hardware s
 ## Troubleshooting
 
 <details>
-<summary>Troubleshooting Tips</summary>
+<summary>Games don't open when clicked in web interface</summary>
 
 If you're having trouble getting the training modules to work after starting the Flask server from `openimager-windows.py`, follow these steps:
 
@@ -89,12 +99,27 @@ Repeat these steps for the other modules if needed.
 
 </details>
 
+<details>
+<summary>Module not found</summary>
+
+If the troubleshooting tip above shows **"module name not found"**, follow these steps:
+
+1. **Try Installing with pip**:
+    - Run `pip install <module_name>`
+
+2. **If Error Persists**:
+    - Run `pip install <module_name> --user`
+
+Replace `<module_name>` with the library name that gives the error, for example, `cvzone`, `flask`, etc.
+
+</details>
+
 ---
 
-## Training Modules & code snippets
+## Training sequences & code snippets
 
 <details>
-<summary>Balance Module / Snake Game</summary>
+<summary>Balance sequence / Snake Game</summary>
 
 ### Purpose
 - A hand-controlled snake game using OpenCV and Pygame.
@@ -212,7 +237,7 @@ Repeat these steps for the other modules if needed.
 </details>
 
 <details>
-<summary>Agility Module (Planting Game)</summary>
+<summary>Agility sequence (Planting Game)</summary>
 
 ### Purpose
 - A hand-controlled drag-and-drop planting game using OpenCV and Pygame.
@@ -361,7 +386,7 @@ Repeat these steps for the other modules if needed.
 </details>
 
 <details>
-<summary>Dexterity Module (Piano Game)</summary>
+<summary>Dexterity sequence (Piano Game)</summary>
 
 ### Purpose
 - A hand gesture-controlled piano game using OpenCV, MediaPipe, and Pygame.
