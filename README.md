@@ -2,7 +2,6 @@
 
 [![Version](https://img.shields.io/badge/version-4.2.0-blue.svg)]()
 [![Python Version](https://img.shields.io/badge/python-3.12-blue.svg)](https://www.python.org/downloads/release/python-312/)
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
 **Open Imager** is a gesture-controlled interface designed to harness the power of advanced hand tracking technologies. Utilizing a combination of **OpenCV**, **CVZone**, and **MediaPipe**, it offers an unparalleled interactive experience.
 
